@@ -1,0 +1,22 @@
+{
+	"name" : "portalium/portalium-device",
+	"description" : "Portalium Device Module",
+	"type" : "portalium-module",
+	"license": "MIT",
+	"homepage" : "http://portalium.dev",
+	"authors" : [
+		{
+			"name" : "Uğur YILDIZ",
+			"email" : "yildiz@diginova.com.tr",
+			"homepage" : "http://uguryildiz.net"
+		}
+	],
+	"support" : {
+		"issues" : "https://github.com/portalium/portalium-device/issues"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"portalium\\device\\" : "src/"
+		}
+	}
+}
