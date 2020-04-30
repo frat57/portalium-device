@@ -24,7 +24,7 @@ class DeviceSearch extends Device
 
     public function search($params)
     {
-        $query = Device::find();
+        $query = device::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
