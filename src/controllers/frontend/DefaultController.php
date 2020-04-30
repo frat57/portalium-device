@@ -9,6 +9,6 @@ class DefaultController extends WebController
 {
     public function actionIndex()
     {
-        return $this->redirect('login');
+        return $this->redirect('index');
     }
 }
