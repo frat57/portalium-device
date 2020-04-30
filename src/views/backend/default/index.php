@@ -1,8 +1,8 @@
 <?php
 
 use portalium\device\Module;
-$this->title = Module::t('Device');
 
+$this->title = Module::t('Device');
 ?>
 <div class="site-index">
     <div class="jumbotron">
