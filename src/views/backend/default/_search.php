@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="listem-search">
+<div class="Device-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],

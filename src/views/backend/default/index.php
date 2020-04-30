@@ -4,6 +4,7 @@ use portalium\device\Module;
 use yii\widgets\Pjax;
 use yii\helpers\Html;
 use yii\grid\GridView;
+
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\DeviceSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */

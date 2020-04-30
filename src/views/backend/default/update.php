@@ -8,11 +8,11 @@ use yii\helpers\Html;
 $this->title = Yii::t('app', 'Update Listem: {name}', [
     'name' => $model->user_id,
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Listem'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Device'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->user_id, 'url' => ['view', 'id' => $model->user_id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
-<div class="listem-update">
+<div class="Device-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

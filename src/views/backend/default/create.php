@@ -6,10 +6,11 @@ use yii\helpers\Html;
 /* @var $model backend\models\Device */
 
 $this->title = Yii::t('app', 'Create Device List');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Listem'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Device'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="listem-create">
+
+<div class="Device-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

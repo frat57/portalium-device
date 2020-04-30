@@ -7,8 +7,7 @@ use yii\widgets\ActiveForm;
 /* @var $model backend\models\Device */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
-<div class="listem-form">
+<div class="Device-form">
 
     <?php $form = ActiveForm::begin(); ?>
 

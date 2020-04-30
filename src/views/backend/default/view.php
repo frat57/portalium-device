@@ -7,11 +7,12 @@ use yii\widgets\DetailView;
 /* @var $model backend\models\Device */
 
 $this->title = $model->user_id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Listem'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Device'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="listem-view">
+
+<div class="Device-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

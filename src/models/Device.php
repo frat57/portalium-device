@@ -10,7 +10,6 @@ class Device extends ActiveRecord
     {
         return '{{device}}';
     }
-
     public function rules()
     {
         return [

@@ -2,7 +2,6 @@
 
 namespace portalium\site\models;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use portalium\device\models\Device;

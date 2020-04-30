@@ -5,7 +5,6 @@ namespace portalium\device\controllers\backend;
 use portalium\site\models\DeviceSearch;
 use Yii;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
 use portalium\web\Controller as WebController;
 
 class DefaultController extends WebController
