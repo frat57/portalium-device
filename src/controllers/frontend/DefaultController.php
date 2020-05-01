@@ -2,7 +2,6 @@
 
 namespace portalium\device\controllers\frontend;
 
-use portalium\device\Module;
 use portalium\web\Controller as WebController;
 
 class DefaultController extends WebController

@@ -1,7 +1,6 @@
 <?php
 
 use yii\db\Migration;
-use portalium\site\models\Device;
 
 class m010101_010101_device extends Migration
 {
