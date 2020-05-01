@@ -1,6 +1,6 @@
 <?php
 
-namespace portalium\site\models;
+namespace portalium\device\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
