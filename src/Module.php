@@ -15,5 +15,4 @@ class Module extends \portalium\base\Module
     {
         return parent::coreT('device', $message, $params);
     }
-
 }

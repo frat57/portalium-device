@@ -1,12 +1,12 @@
 <?php
 
 use yii\helpers\Html;
-
+use portalium\device\Module;
 /* @var $this yii\web\View */
 /* @var $model portalium\device\models\Device */
 
-$this->title = Yii::t('app', 'Create Device');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Devices'), 'url' => ['index']];
+$this->title = Module::t('Create Device');
+$this->params['breadcrumbs'][] = ['label' => Module::t('Devices'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="device-create">

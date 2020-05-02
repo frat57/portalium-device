@@ -5,7 +5,7 @@ namespace portalium\device\controllers\backend;
 use Yii;
 use portalium\device\models\Device;
 use portalium\device\models\DeviceSearch;
-use yii\web\Controller;
+use portalium\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 

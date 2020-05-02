@@ -3,11 +3,12 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use portalium\device\Module;
 /* @var $this yii\web\View */
 /* @var $searchModel portalium\device\models\DeviceSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Devices');
+$this->title = Module::t('Devices');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="device-index">
@@ -15,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Device'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Module::t('Create Device'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
