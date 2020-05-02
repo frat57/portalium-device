@@ -14,11 +14,15 @@ class m010101_010101_device extends Migration
         $this->createTable('device', [
             'id' => $this->primaryKey(),
             'name' => $this->string(64)->notNull(),
+            'api' => $this->string(64)->notNull(),
+            'description' => $this->text(),
+            'type' => $this->tinyInteger(),
+            'properties' => $this->string(64),
+            'variable' => $this->string(64),
+            'tag'=> $this->string(20)
         ], $tableOptions);
 
-        $this->insert('device', [
-            'name' => 'Hüseyin Fırat Albayrak',
-        ]);
+
     }
     public function down()
     {

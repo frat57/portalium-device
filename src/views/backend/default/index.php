@@ -1,11 +1,45 @@
 <?php
 
-use portalium\device\Module;
+use yii\helpers\Html;
+use yii\grid\GridView;
+use yii\widgets\Pjax;
+/* @var $this yii\web\View */
+/* @var $searchModel portalium\device\models\DeviceSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Module::t('Device');
+$this->title = Yii::t('app', 'Devices');
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-index">
-    <div class="jumbotron">
-        <h1><?= Module::t('Device Module - Backend') ?></h1>
-    </div>
+<div class="device-index">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <p>
+        <?= Html::a(Yii::t('app', 'Create Device'), ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
+
+    <?php Pjax::begin(); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'id',
+            'name',
+            'api',
+            'description:ntext',
+            'type',
+            //'properties',
+            //'variable',
+            //'tag',
+
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
+
+    <?php Pjax::end(); ?>
+
 </div>

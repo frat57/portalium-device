@@ -13,8 +13,11 @@ class Device extends ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
-            [['name'], 'string', 'max' => 64],
+            [['name', 'api'], 'required'],
+            [['description'], 'string'],
+            [['type'], 'integer'],
+            [['name', 'api', 'properties', 'variable'], 'string', 'max' => 64],
+            [['tag'], 'string', 'max' => 20],
         ];
     }
 
@@ -23,6 +26,11 @@ class Device extends ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
+            'api' => 'Api',
+            'type'=> 'Type',
+            'properties' => 'Properties',
+            'variable' => 'Variable',
+            'tag' => 'Tag'
         ];
     }
 }
