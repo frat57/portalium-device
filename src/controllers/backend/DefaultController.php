@@ -6,7 +6,7 @@ use Yii;
 use portalium\device\models\Device;
 use portalium\device\models\DeviceSearch;
 use portalium\web\Controller;
-use yii\web\NotFoundHttpException;
+use portalium\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
