@@ -3,6 +3,7 @@
 namespace portalium\device\models;
 
 use yii\db\ActiveRecord;
+use portalium\device\Module;
 
 class Device extends ActiveRecord
 {
@@ -24,13 +25,14 @@ class Device extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'name' => 'Name',
-            'api' => 'Api',
-            'type'=> 'Type',
-            'properties' => 'Properties',
-            'variable' => 'Variable',
-            'tag' => 'Tag'
+            'id' => Module::t('ID'),
+            'name' => Module::t('Name'),
+            'api' => Module::t('Api'),
+            'type'=> Module::t('Type'),
+            'properties' => Module::t('Properties'),
+            'variable' => Module::t('Vartiable'),
+            'tag' => Module::t('Tag')
         ];
     }
+
 }
