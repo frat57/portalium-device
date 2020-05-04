@@ -2,24 +2,20 @@
 
 namespace portalium\device\models;
 
+use portalium\helpers\ObjectHelper;
 use Yii;
 use yii\db\ActiveRecord;
 use portalium\device\Module;
-/**
- * This is the model class for table "{{%properties}}".
- *
- * @property int $id
- * @property string $name
- * @property string $key
- * @property string $description
- * @property int $format
- * @property int $device_id
- *
- * @property Device $device
- * @property Type[] $types
- */
+
+
 class Properties extends ActiveRecord
 {
+    const type_false = 0;
+    const type_true = 1;
+    const type_date = 2;
+    const type_number = 3;
+    const text = 4;
+
     public static function tableName()
     {
         return '{{%properties}}';
@@ -30,7 +26,8 @@ class Properties extends ActiveRecord
         return [
             [['name', 'key', 'description', 'format', 'device_id'], 'required'],
             [['key', 'description'], 'string'],
-            [['format', 'device_id'], 'integer'],
+            ['format', 'default', 'value' => self::TYPE_INPUT],
+            ['format','in','range' => self::getTypes()],
             [['name'], 'string', 'max' => 20],
             [['device_id'], 'exist', 'skipOnError' => true, 'targetClass' => Device::className(), 'targetAttribute' => ['device_id' => 'id']],
         ];
@@ -61,5 +58,9 @@ class Properties extends ActiveRecord
     public static function find()
     {
         return new PropertiesQuery(get_called_class());
+    }
+    public static function getType()
+    {
+        return ObjectHelper::getConstants('type_',__CLASS__);
     }
 }

@@ -4,20 +4,8 @@ namespace portalium\device\models;
 
 use Yii;
 use yii\db\ActiveRecord;
-/**
- * This is the model class for table "{{%type}}".
- *
- * @property string $name
- * @property int $api
- * @property string $description
- * @property int $properties_id
- * @property int $variable_id
- * @property int $device_id
- *
- * @property Device $device
- * @property Properties $properties
- * @property Variable $variable
- */
+use portalium\device\Module;
+
 class Type extends ActiveRecord
 {
     public static function tableName()

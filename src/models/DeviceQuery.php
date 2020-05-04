@@ -2,8 +2,7 @@
 
 namespace portalium\device\models;
 
-
-class TypeQuery extends \yii\db\ActiveQuery
+class DeviceQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
