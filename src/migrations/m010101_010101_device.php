@@ -16,7 +16,7 @@ class m010101_010101_device extends Migration
             'name' => $this->string(64)->notNull(),
             'api' => $this->string(64)->notNull(),
             'description' => $this->text(),
-            'type' => $this->tinyInteger(),
+            'type' => $this->tinyInteger(5),
             'properties' => $this->string(64),
             'variable' => $this->string(64),
             'tag'=> $this->string(20)
