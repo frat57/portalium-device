@@ -4,12 +4,7 @@ namespace portalium\device\models;
 
 use Yii;
 use portalium\device\Module;
-/**
- * This is the model class for table "{{%tag}}".
- *
- * @property int $device_id
- * @property string $name
- */
+
 class Tag extends \yii\db\ActiveRecord
 {
 
