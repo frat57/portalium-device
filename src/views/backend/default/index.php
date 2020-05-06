@@ -32,10 +32,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'api',
             'description:ntext',
-            'type',
-            //'properties',
-            //'variable',
-            'tag',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

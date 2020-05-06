@@ -8,6 +8,7 @@ use portalium\device\Module;
 
 class Device extends ActiveRecord
 {
+
     public static function tableName()
     {
         return '{{%device}}';
@@ -18,8 +19,7 @@ class Device extends ActiveRecord
         return [
             [['name', 'api'], 'required'],
             [['description'], 'string'],
-            [['name', 'api', 'type', 'properties', 'variable'], 'string', 'max' => 64],
-            [['tag'], 'string', 'max' => 20],
+            [['name', 'api'], 'string', 'max' => 64],
         ];
     }
 
@@ -30,10 +30,6 @@ class Device extends ActiveRecord
             'name' => Module::t('Name'),
             'api' => Module::t('Api'),
             'description' => Module::t('Description'),
-            'type' => Module::t('Type'),
-            'properties' => Module::t('Properties'),
-            'variable' => Module::t('Variable'),
-            'tag' => Module::t('Tag'),
         ];
     }
 
@@ -42,9 +38,14 @@ class Device extends ActiveRecord
         return $this->hasMany(Data::className(), ['device_id' => 'id']);
     }
 
-    public function getProperties0()
+    public function getProperties()
     {
         return $this->hasMany(Properties::className(), ['device_id' => 'id']);
+    }
+
+    public function getTags()
+    {
+        return $this->hasMany(Tag::className(), ['device_id' => 'id']);
     }
 
     public function getTypes()
@@ -52,10 +53,12 @@ class Device extends ActiveRecord
         return $this->hasMany(Type::className(), ['device_id' => 'id']);
     }
 
+
     public function getVariables()
     {
         return $this->hasMany(Variable::className(), ['device_id' => 'id']);
     }
+
 
     public static function find()
     {

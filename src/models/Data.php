@@ -1,12 +1,17 @@
 <?php
 
 namespace portalium\device\models;
-use yii\db\ActiveRecord;
+
+use portalium\helpers\ObjectHelper;
 use Yii;
+use yii\db\ActiveRecord;
 use portalium\device\Module;
 
 class Data extends ActiveRecord
 {
+    const type_intfalse = 0;
+    const type_inttrue = 1;
+
     public static function tableName()
     {
         return '{{%data}}';
@@ -15,8 +20,9 @@ class Data extends ActiveRecord
     public function rules()
     {
         return [
-            [['device_id', 'data'], 'required'],
-            [['device_id', 'data'], 'integer'],
+            [['device_id', 'value', 'type'], 'required'],
+            [['device_id', 'type'], 'integer'],
+            [['value'], 'string'],
             [['created_at'], 'safe'],
             [['device_id'], 'exist', 'skipOnError' => true, 'targetClass' => Device::className(), 'targetAttribute' => ['device_id' => 'id']],
         ];
@@ -26,7 +32,8 @@ class Data extends ActiveRecord
     {
         return [
             'device_id' => Module::t('Device ID'),
-            'data' => Module::t('Data'),
+            'value' => Module::t('Value'),
+            'type' => Module::t('Type'),
             'created_at' => Module::t('Created At'),
         ];
     }
@@ -39,5 +46,9 @@ class Data extends ActiveRecord
     public static function find()
     {
         return new DataQuery(get_called_class());
+    }
+    public static function getType()
+    {
+        return ObjectHelper::getConstants('type_',__CLASS__);
     }
 }
