@@ -102,7 +102,7 @@ class m010101_010101_device extends Migration
             'data',
             'device_id',
             'device',
-            'id',
+            'id'
         );
         $this->createIndex(
             'idx-device-type_id',
@@ -114,7 +114,7 @@ class m010101_010101_device extends Migration
             'device',
             'type_id',
             'type',
-            'id',
+            'id'
         );
         $this->createIndex(
             'idx-properties-device_id',
@@ -126,19 +126,19 @@ class m010101_010101_device extends Migration
             'properties',
             'device_id',
             'device',
-            'id',
+            'id'
         );
         $this->createIndex(
-            'idx-properties-device_id',
+            'idx-properties-type_id',
             'properties',
             'type_id'
         );
         $this->addForeignKey(
-            'fk-properties-device_id',
+            'fk-properties-type_id',
             'properties',
             'type_id',
             'type',
-            'id',
+            'id'
         );
         $this->createIndex(
             'idx-tag-device_id',
@@ -150,7 +150,7 @@ class m010101_010101_device extends Migration
             'tag',
             'device_id',
             'device',
-            'id',
+            'id'
         );
         $this->createIndex(
             'idx-type-device_id',
@@ -162,7 +162,7 @@ class m010101_010101_device extends Migration
             'type',
             'device_id',
             'device',
-            'id',
+            'id'
         );
         $this->createIndex(
             'idx-variable-device_id',
@@ -174,7 +174,7 @@ class m010101_010101_device extends Migration
             'variable',
             'device_id',
             'device',
-            'id',
+            'id'
         );
         $this->createIndex(
             'idx-variable-type_id',
@@ -186,20 +186,30 @@ class m010101_010101_device extends Migration
             'variable',
             'type_id',
             'type',
-            'id',
+            'id'
         );
 
     }
     public function down()
     {
-        $this->dropForeignKey(fk-data-device_id);
-        $this->dropForeignKey(fk-device-type_id);
-        $this->dropForeignKey(fk-properties-device_id);
-        $this->dropForeignKey(fk-properties-device_id);
-        $this->dropForeignKey(fk-tag-device_id);
-        $this->dropForeignKey(fk-type-device_id);
-        $this->dropForeignKey(fk-variable-device_id);
-        $this->dropForeignKey(fk-variable-type_id);
+        $this->dropIndex('fk-data-device_id');
+        $this->dropIndex('fk-device-type_id');
+        $this->dropIndex('fk-properties-device_id');
+        $this->dropIndex('fk-properties-type_id');
+        $this->dropIndex('fk-tag-device_id');
+        $this->dropIndex('fk-type-device_id');
+        $this->dropIndex('fk-variable-device_id');
+        $this->dropIndex('fk-variable-type_id');
+        
+        $this->dropForeignKey('fk-data-device_id');
+        $this->dropForeignKey('fk-device-type_id');
+        $this->dropForeignKey('fk-properties-device_id');
+        $this->dropForeignKey('fk-properties-type_id');
+        $this->dropForeignKey('fk-tag-device_id');
+        $this->dropForeignKey('fk-type-device_id');
+        $this->dropForeignKey('fk-variable-device_id');
+        $this->dropForeignKey('fk-variable-type_id');
+
         $this->dropTable('data');
         $this->dropTable('device');
         $this->dropTable('tag');
