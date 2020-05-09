@@ -11,21 +11,20 @@ class Variable extends ActiveRecord
 
     public static function tableName()
     {
-        return '{{%variable}}';
+        return 'variable';
     }
 
     public function rules()
     {
         return [
-            [['name', 'api', 'unit'], 'required'],
-            [['description', 'unit'], 'string'],
-            [['range', 'device_id', 'type_id'], 'integer'],
-            [['name', 'api'], 'string', 'max' => 20],
+            [['name', 'api', 'description', 'range', 'unit', 'type_name', 'type_api', 'type_description', 'type_range', 'type_unit'], 'required'],
+            [['description', 'unit', 'type_description', 'type_unit'], 'string'],
+            [['range', 'device_id', 'type_id', 'type_range'], 'integer'],
+            [['name', 'api', 'type_name', 'type_api'], 'string', 'max' => 20],
             [['device_id'], 'exist', 'skipOnError' => true, 'targetClass' => Device::className(), 'targetAttribute' => ['device_id' => 'id']],
             [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => Type::className(), 'targetAttribute' => ['type_id' => 'id']],
         ];
     }
-
 
     public function attributeLabels()
     {
@@ -38,17 +37,12 @@ class Variable extends ActiveRecord
             'unit' => Module::t('Unit'),
             'device_id' => Module::t('Device ID'),
             'type_id' => Module::t('Type ID'),
+            'type_name' => Module::t('Type Name'),
+            'type_api' => Module::t('Type Api'),
+            'type_description' => Module::t('Type Description'),
+            'type_range' => Module::t('Type Range'),
+            'type_unit' => Module::t('Type Unit'),
         ];
-    }
-
-    public function getDevice()
-    {
-        return $this->hasOne(Device::className(), ['id' => 'device_id']);
-    }
-
-    public function getType()
-    {
-        return $this->hasOne(Type::className(), ['id' => 'type_id']);
     }
 
     public static function find()
