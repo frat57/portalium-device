@@ -200,7 +200,7 @@ class m010101_010101_device extends Migration
         $this->dropIndex('fk-type-device_id');
         $this->dropIndex('fk-variable-device_id');
         $this->dropIndex('fk-variable-type_id');
-        
+
         $this->dropForeignKey('fk-data-device_id');
         $this->dropForeignKey('fk-device-type_id');
         $this->dropForeignKey('fk-properties-device_id');
