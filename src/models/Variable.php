@@ -44,6 +44,15 @@ class Variable extends ActiveRecord
             'type_unit' => Module::t('Type Unit'),
         ];
     }
+    public function getDevice()
+    {
+        return $this->hasOne(Device::className(), ['id' => 'device_id']);
+    }
+
+    public function getType()
+    {
+        return $this->hasOne(Type::className(), ['id' => 'type_id']);
+    }
 
     public static function find()
     {
