@@ -43,11 +43,6 @@ class m010101_010101_device extends Migration
             'value' => $this->text(),
             'device_id' => $this->integer(11)->null()->defaultValue(0),
             'type_id' => $this->integer(11)->null()->defaultValue(0),
-            'type_name' => $this->string(20)->null(),
-            'type_key' => $this->text(),
-            'type_description' => $this->text(),
-            'type_format' => $this->tinyInteger(5),
-            'type_value' => $this->text(),
         ], $tableOptions);
 
         $tableOptions = null;
@@ -84,12 +79,6 @@ class m010101_010101_device extends Migration
             'range' => $this->integer(11),
             'unit' => $this->text(),
             'device_id' => $this->integer(11)->null()->defaultValue(0),
-            'type_id' => $this->integer(11)->null()->defaultValue(0),
-            'type_name' => $this->string(20),
-            'type_api' => $this->string(20),
-            'type_description' => $this->text(),
-            'type_range' => $this->integer(11),
-            'type_unit' => $this->text(),
         ], $tableOptions);
 
         $this->createIndex(

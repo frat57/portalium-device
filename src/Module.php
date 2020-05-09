@@ -8,11 +8,8 @@ class Module extends \portalium\base\Module
         [
             'class' => 'yii\rest\UrlRule',
             'controller' => [
-                'device/Devices',
-            ],
-            'tokens' => [
-                '{id}' => '<id:\\w+>'
-            ],
+                'device/devices',
+            ]
         ],
     ];
     public static function moduleInit()
