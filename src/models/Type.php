@@ -17,10 +17,10 @@ class Type extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'api', 'description', 'device_id'], 'required'],
-            [['api', 'device_id'], 'integer'],
+            [['name', 'api', 'device_id'], 'required'],
+            [['device_id'], 'integer'],
             [['description'], 'string'],
-            [['name'], 'string', 'max' => 20],
+            [['name','api'], 'string', 'max' => 20],
             [['device_id'], 'exist', 'skipOnError' => true, 'targetClass' => Device::className(), 'targetAttribute' => ['device_id' => 'id']],
         ];
     }

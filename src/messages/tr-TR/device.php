@@ -17,6 +17,7 @@ return [
     'Search' => 'Arama',
     'Reset' => 'Sıfırla',
     'tag' => 'Etiket',
+    'The requested page does not exist.' => 'İstenen sayfa mevcut değildir',
     'type' => 'Tür',
     'properties' => 'Özellikler',
     'Update Device' => 'Cihazı Güncelle',

@@ -17,7 +17,7 @@ class Device extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'api'], 'required'],
+            [['name', 'api','type'], 'required'],
             [['description'], 'string'],
             [['name', 'api'], 'string', 'max' => 64],
         ];
@@ -30,6 +30,7 @@ class Device extends ActiveRecord
             'name' => Module::t('Name'),
             'api' => Module::t('Api'),
             'description' => Module::t('Description'),
+            'type' => Module::t('type'),
         ];
     }
 

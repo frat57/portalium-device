@@ -17,7 +17,7 @@ class Variable extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'api', 'description', 'range', 'unit', 'device_id', 'type_id'], 'required'],
+            [['name', 'api', 'unit'], 'required'],
             [['description', 'unit'], 'string'],
             [['range', 'device_id', 'type_id'], 'integer'],
             [['name', 'api'], 'string', 'max' => 20],

@@ -5,6 +5,7 @@ use yii\widgets\DetailView;
 use portalium\device\Module;
 /* @var $this yii\web\View */
 /* @var $model portalium\device\models\Device */
+/* @var $tag portalium\device\models\Tag */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Module::t('Devices'), 'url' => ['index']];
@@ -33,10 +34,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'api',
             'description:ntext',
-            'type',
-            'properties',
-            'variable',
-            'tag',
         ],
     ]) ?>
 

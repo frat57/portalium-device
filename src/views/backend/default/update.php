@@ -5,6 +5,7 @@ use portalium\device\Module;
 
 /* @var $this yii\web\View */
 /* @var $model portalium\device\models\Device */
+/* @var $tag portalium\device\models\Tag */
 
 $this->title = Module::t('Update Device: {name}', [
     'name' => $model->name,

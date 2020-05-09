@@ -7,6 +7,7 @@ use portalium\device\Module;
 /* @var $this yii\web\View */
 /* @var $searchModel portalium\device\models\DeviceSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $type portalium\device\models\Type */
 
 $this->title = Module::t('Devices');
 $this->params['breadcrumbs'][] = $this->title;
@@ -17,6 +18,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a(Module::t('Create Device'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Module::t('Create Type'), ['type'], ['class' => 'btn btn-success']) ?>
+    </p>
+    <p>
+
     </p>
 
     <?php Pjax::begin(); ?>

@@ -4,6 +4,14 @@ namespace portalium\device;
 
 class Module extends \portalium\base\Module
 {
+    public $apiRules = [
+        [
+            'class' => 'yii\rest\UrlRule',
+            'controller' => [
+                'device/devices',
+            ]
+        ],
+    ];
     public static function moduleInit()
     {
         self::registerTranslation('device','@portalium/device/messages',[

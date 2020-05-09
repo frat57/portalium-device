@@ -19,16 +19,8 @@ use portalium\device\Module;
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'type')->textInput() ?>
-
-    <?= $form->field($model, 'properties')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'variable')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'tag')->textInput(['maxlength' => true]) ?>
-
     <div class="form-group">
-        <?= Html::submitButton(Module::t('Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Module::t('Save'), ['view'],['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

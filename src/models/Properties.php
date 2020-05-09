@@ -9,11 +9,12 @@ use portalium\device\Module;
 
 class Properties extends ActiveRecord
 {
-    const type_false = 0;
-    const type_true = 1;
-    const type_date = 2;
-    const type_number = 3;
-    const type_text = 4;
+    const type_text = 0;
+    const type_number = 1;
+    const type_true = 2;
+    const type_false = 3;
+    const type_date = 4;
+
 
     public static function tableName()
     {
@@ -23,12 +24,14 @@ class Properties extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'key', 'description', 'format', 'device_id', 'type_id'], 'required'],
-            [['key', 'description'], 'string'],
-            [['format', 'device_id', 'type_id'], 'integer'],
-            [['name'], 'string', 'max' => 20],
+            [['name', 'format'], 'required'],
+            [['key', 'description','value'], 'string'],
+            [['device_id', 'type_id'], 'integer'],
+            ['format', 'default', 'value'=> self::type_text],
+            ['format', 'in' ,'range'=> self::getTypes()],
             [['device_id'], 'exist', 'skipOnError' => true, 'targetClass' => Device::className(), 'targetAttribute' => ['device_id' => 'id']],
             [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => Type::className(), 'targetAttribute' => ['type_id' => 'id']],
+            [['name'], 'string', 'max' => 20],
         ];
     }
 
@@ -42,6 +45,7 @@ class Properties extends ActiveRecord
             'format' => Module::t('Format'),
             'device_id' => Module::t('Device ID'),
             'type_id' => Module::t('Type ID'),
+            'value' => Module::t('Default Value'),
         ];
     }
 
