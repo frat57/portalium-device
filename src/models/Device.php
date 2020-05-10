@@ -17,7 +17,7 @@ class Device extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'api','type_id'], 'required'],
+            [['name', 'api'], 'required'],
             [['description'], 'string'],
             [['type_id'], 'integer'],
             [['name', 'api'], 'string', 'max' => 64],
