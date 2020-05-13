@@ -7,9 +7,9 @@ use portalium\theme\widgets\Tabs;
 /* @var $model portalium\device\models\Type */
 
 
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Types'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Module::t('Types'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->params['breadcrumbs'][] = Module::t('Update');
 ?>
 <div class="type-update">
 
@@ -28,6 +28,13 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                     'provider'=>$variableProvider ,
                     'type'=>$model->id]),
             ],
+            [
+                'label' => 'Properties',
+                'content' => $this->render('properties',
+                    ['model' => $properties,
+                        'provider'=>$propertiesProvider ,
+                        'type'=>$model->id]),
+            ]
         ]
     ]);
     ?>

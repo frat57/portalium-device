@@ -1,18 +1,14 @@
 <?php
-
 namespace portalium\device\controllers\backend;
 
-use portalium\device\models\Properties;
-use Yii;
 use portalium\device\models\Type;
+use portalium\device\models\Device;
 use portalium\device\models\TypeSearch;
-use portalium\device\models\Variable;
 use portalium\web\Controller;
-use portalium\web\NotFoundHttpException;
-use yii\data\ActiveDataProvider;
+use Yii;
 use yii\filters\VerbFilter;
 
-class TypeController extends Controller
+class ProjectController extends Controller
 {
 
     public function behaviors()
@@ -26,10 +22,9 @@ class TypeController extends Controller
             ],
         ];
     }
-
     public function actionIndex()
     {
-        $searchModel = new TypeSearch();
+        $searchModel = new ProjectSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -37,44 +32,21 @@ class TypeController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-
     public function actionView($id)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }
-
-    public function actionCreate()
+    public function actionCreate($id)
     {
-        $model = new Type();
-
+        $model = new Device();
+        $model->device_id = $id;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['type/manage', 'id' => $model->id]);
+            return $this->redirect(['type/manage', 'id' => $id , '#' =>'w3-tab1']);
         }
-
         return $this->render('create', [
             'model' => $model,
-        ]);
-    }
-    public function actionManage($id){
-        $model = $this->findModel($id);
-        $variable = new Variable();
-        $variableQuery = Variable::find()->where(['type_id' => $id]);
-        $variableProvider = new ActiveDataProvider(['query' => $variableQuery]);
-        $properties = new Properties();
-        $propertiesQuery = Properties::find()->where(['type_id' => $id]);
-        $propertiesProvider = new ActiveDataProvider(['query' => $propertiesQuery]);
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['manage', 'id' => $model->id]);
-        }
-
-        return $this->render('manage',[
-            'model' => $model,
-            'variable' => $variable,
-            'variableProvider' => $variableProvider,
-            'properties' => $properties,
-            'propertiesProvider' => $propertiesProvider
         ]);
     }
     public function actionUpdate($id)
@@ -86,7 +58,6 @@ class TypeController extends Controller
         }
 
     }
-
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
@@ -96,11 +67,10 @@ class TypeController extends Controller
 
     protected function findModel($id)
     {
-        if (($model = Type::findOne($id)) !== null) {
+        if (($model = Device::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException(Module::t('The requested page does not exist.'));
     }
-
 }

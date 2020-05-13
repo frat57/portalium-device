@@ -18,8 +18,6 @@ use portalium\device\Module;
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'device_id')->textInput() ?>
-
     <div class="form-group">
         <?= Html::submitButton(Module::t('Save'), ['class' => 'btn btn-success']) ?>
     </div>
