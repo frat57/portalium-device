@@ -1,12 +1,12 @@
 <?php
 
 use yii\helpers\Html;
-
+use portalium\device\Module;
 /* @var $this yii\web\View */
 /* @var $model portalium\device\models\Type */
 
-$this->title = Yii::t('app', 'Create Type');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Types'), 'url' => ['index']];
+$this->title = Module::t('Create Type');
+$this->params['breadcrumbs'][] = ['label' => Module::t('Types'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="type-create">

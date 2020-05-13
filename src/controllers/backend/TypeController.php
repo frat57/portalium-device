@@ -2,11 +2,14 @@
 
 namespace portalium\device\controllers\backend;
 
+use portalium\device\models\Properties;
 use Yii;
 use portalium\device\models\Type;
 use portalium\device\models\TypeSearch;
+use portalium\device\models\Variable;
 use portalium\web\Controller;
 use portalium\web\NotFoundHttpException;
+use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 
 class TypeController extends Controller
@@ -47,25 +50,36 @@ class TypeController extends Controller
         $model = new Type();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['type/manage', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
         ]);
     }
+    public function actionManage($id){
+        $model = $this->findModel($id);
+        $variable = new Variable();
+        $variableQuery = Variable::find()->where(['type_id' => $id]);
+        $variableProvider = new ActiveDataProvider(['query' => $variableQuery]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['manage', 'id' => $model->id]);
+        }
 
+        return $this->render('manage',[
+            'model' => $model,
+            'variable' => $variable,
+            'variableProvider' => $variableProvider
+        ]);
+    }
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['type/manage', 'id' => $model->id]);
         }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     public function actionDelete($id)
@@ -83,4 +97,5 @@ class TypeController extends Controller
 
         throw new NotFoundHttpException(Module::t('The requested page does not exist.'));
     }
+
 }

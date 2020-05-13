@@ -17,7 +17,7 @@ class Type extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'api', 'device_id'], 'required'],
+            [['name', 'api'], 'required'],
             [['device_id'], 'integer'],
             [['description'], 'string'],
             [['name','api'], 'string', 'max' => 20],

@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-
+use portalium\theme\widgets\Tabs;
 /* @var $this yii\web\View */
 /* @var $model portalium\device\models\Type */
 
