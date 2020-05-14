@@ -19,12 +19,24 @@ class m010101_010101_device extends Migration
             'type_id' => $this->integer(11),
         ], $tableOptions);
 
+        $tableOptions = null;
+        if ($this->db->driverName === 'mysql') {
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+        }
+
+        $this->createTable('project', [
+            'id' => $this->primaryKey(),
+            'projectName' => $this->string(64)->notNull(),
+            'device_id' => $this->integer(11),
+            'connType' => $this->tinyInteger(3),
+        ], $tableOptions);
+
         $tableoptions = null;
         if ($this->db->driverName === 'mysql') {
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
         $this->createTable('data', [
-            'device_id' => $this->primaryKey(),
+            'device_id' => $this->integer(11),
             'value' => $this->text(),
             'created_at' => $this->timestamp(),
             'type' => $this->tinyInteger(1),
@@ -89,6 +101,18 @@ class m010101_010101_device extends Migration
         $this->addForeignKey(
             'fk-data-device_id',
             'data',
+            'device_id',
+            'device',
+            'id'
+        );
+        $this->createIndex(
+            'idx-project-device_id',
+            'project',
+            'device_id'
+        );
+        $this->addForeignKey(
+            'fk-project-device_id',
+            'project',
             'device_id',
             'device',
             'id'
@@ -182,6 +206,7 @@ class m010101_010101_device extends Migration
     public function down()
     {
         $this->dropIndex('fk-data-device_id');
+        $this->dropIndex('fk-project-device_id');
         $this->dropIndex('fk-device-type_id');
         $this->dropIndex('fk-properties-device_id');
         $this->dropIndex('fk-properties-type_id');
@@ -191,6 +216,7 @@ class m010101_010101_device extends Migration
         $this->dropIndex('fk-variable-type_id');
 
         $this->dropForeignKey('fk-data-device_id');
+        $this->dropForeignKey('fk-project-device_id');
         $this->dropForeignKey('fk-device-type_id');
         $this->dropForeignKey('fk-properties-device_id');
         $this->dropForeignKey('fk-properties-type_id');
