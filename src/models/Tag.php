@@ -17,8 +17,8 @@ class Tag extends ActiveRecord
     public function rules()
     {
         return [
-            [['device_id', 'name'], 'required'],
-            [['device_id'], 'integer'],
+            [['device_id', 'id', 'name'], 'required'],
+            [['device_id', 'id'], 'integer'],
             [['name'], 'string', 'max' => 20],
             [['device_id'], 'exist', 'skipOnError' => true, 'targetClass' => Device::className(), 'targetAttribute' => ['device_id' => 'id']],
         ];
@@ -28,7 +28,8 @@ class Tag extends ActiveRecord
     {
         return [
             'device_id' => Module::t('Device ID'),
-            'name' => Module::t('Tag'),
+            'name' => Module::t('Tags'),
+            'id' => Module::t('ID'),
         ];
     }
 

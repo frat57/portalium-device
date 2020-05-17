@@ -3,7 +3,6 @@
 namespace portalium\device\controllers\backend;
 
 use portalium\device\models\Properties;
-use portalium\device\models\TypeQuery;
 use portalium\device\models\Variable;
 use Yii;
 use portalium\device\models\Device;
@@ -14,7 +13,6 @@ use portalium\web\Controller;
 use portalium\web\NotFoundHttpException;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
-use portalium\device\Module;
 
 
 class DefaultController extends Controller
@@ -47,92 +45,29 @@ class DefaultController extends Controller
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
-        return $this->render('view', [
-            'type' => $this->findModel($id),
-        ]);
-        return $this->render('view', [
-            'properties' => $this->findModel($id),
-        ]);
-        return $this->render('view', [
-            'tag' => $this->findModel($id),
-        ]);
-    }
-    //Type için create type controller
-    public function actionType(){
-        $type = new Type();
-        $variable = new Variable();
-        $properties = new Properties();
-        $tag = new Tag();
-
-        if ($type->load(Yii::$app->request->post()) && $type->save()) {
-            return $this->redirect(['view', 'id' => $type->id]);
-        }
-        if ($variable->load(Yii::$app->request->post()) && $variable->save()) {
-            return $this->redirect(['view', 'id' => $variable->id]);
-        }
-        if ($properties->load(Yii::$app->request->post()) && $properties->save()) {
-            return $this->redirect(['view', 'id' => $properties->id]);
-        }
-        if ($tag->load(Yii::$app->request->post()) && $tag->save()) {
-            return $this->redirect(['view', 'id' => $tag->id]);
-        }
-        return $this->render('type', [
-            'type' => $type,
-            'variable' => $variable,
-            'properties'=> $properties,
-            'tag' => $tag
-        ]);
     }
     //Properties için create type controller
     public function actionProperties(){
-        $type = new Type();
-        $variable = new Variable();
         $properties = new Properties();
-        $tag = new Tag();
 
-        if ($type->load(Yii::$app->request->post()) && $type->save()) {
-            return $this->redirect(['view', 'id' => $type->id]);
-        }
-        if ($variable->load(Yii::$app->request->post()) && $variable->save()) {
-            return $this->redirect(['view', 'id' => $variable->id]);
-        }
         if ($properties->load(Yii::$app->request->post()) && $properties->save()) {
-            return $this->redirect(['view', 'id' => $properties->id]);
+            return $this->redirect(['default/manage', 'id' => $properties->id]);
         }
-        if ($tag->load(Yii::$app->request->post()) && $tag->save()) {
-            return $this->redirect(['view', 'id' => $tag->id]);
-        }
+
         return $this->render('properties', [
-            'type' => $type,
-            'variable' => $variable,
             'properties'=> $properties,
-            'tag' => $tag
         ]);
     }
     //Variable için create type controller
     public function actionVariable(){
-        $type = new Type();
         $variable = new Variable();
-        $properties = new Properties();
-        $tag = new Tag();
 
-        if ($type->load(Yii::$app->request->post()) && $type->save()) {
-            return $this->redirect(['view', 'id' => $type->id]);
-        }
         if ($variable->load(Yii::$app->request->post()) && $variable->save()) {
-            return $this->redirect(['view', 'id' => $variable->id]);
+            return $this->redirect(['default/manage', 'id' => $variable->id]);
         }
-        if ($properties->load(Yii::$app->request->post()) && $properties->save()) {
-            return $this->redirect(['view', 'id' => $properties->id]);
-        }
-        if ($tag->load(Yii::$app->request->post()) && $tag->save()) {
-            return $this->redirect(['view', 'id' => $tag->id]);
-        }
+
         return $this->render('variable', [
-            'type' => $type,
             'variable' => $variable,
-            'properties'=> $properties,
-            'tag' => $tag
         ]);
     }
     //Tag için create type controller
@@ -141,7 +76,7 @@ class DefaultController extends Controller
         $tagQuery = Tag::find()->where(['device_id' => $id]);
         $tagProvider = new ActiveDataProvider(['query' => $tagQuery]);
         if ($tag->load(Yii::$app->request->post()) && $tag->save()) {
-            return $this->redirect(['view', 'id' => $tag->id]);
+            return $this->redirect(['default/manage', 'id' => $tag->id]);
         }
         return $this->render('tag', [
             'tag' => $tag,
@@ -152,39 +87,44 @@ class DefaultController extends Controller
     public function actionCreate()
     {
         $model = new Device();
-        $type = new Type();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-        if ($type->load(Yii::$app->request->post()) && $type->save()) {
-            return $this->redirect(['view', 'id' => $type->id]);
+            return $this->redirect(['default/manage', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
         ]);
-        return $this->render('type', [
-            'type' => $type,
+    }
+    public function actionManage($id){
+        $model = $this->findModel($id);
+        $variable = new Variable();
+        $variableQuery = Variable::find()->where(['device_id' => $id]);
+        $variableProvider = new ActiveDataProvider(['query' => $variableQuery]);
+        $properties = new Properties();
+        $propertiesQuery = Properties::find()->where(['device_id' => $id]);
+        $propertiesProvider = new ActiveDataProvider(['query' => $propertiesQuery]);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['manage', 'id' => $model->id]);
+        }
+
+        return $this->render('manage',[
+            'model' => $model,
+            'variable' => $variable,
+            'variableProvider' => $variableProvider,
+            'properties' => $properties,
+            'propertiesProvider' => $propertiesProvider
         ]);
     }
 
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $type = $this->findModel($id);
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-        if ($type->load(Yii::$app->request->post()) && $type->save()) {
-            return $this->redirect(['view', 'id' => $type->id]);
+            return $this->redirect(['default/manage', 'id' => $model->id]);
         }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-        return $this->render('update', [
-            'type' => $type,
-        ]);
     }
 
     public function actionDelete($id)
@@ -198,18 +138,6 @@ class DefaultController extends Controller
     {
         if (($model = Device::findOne($id)) !== null) {
             return $model;
-        }
-        if (($type = Type::findOne($id)) !== null) {
-            return $type;
-        }
-        if (($properties = Properties::findOne($id)) !== null) {
-            return $properties;
-        }
-        if (($variable = Variable::findOne($id)) !== null) {
-            return $variable;
-        }
-        if (($tag = Tag::findOne($id)) !== null) {
-            return $tag;
         }
 
         throw new NotFoundHttpException(Module::t('The requested page does not exist.'));

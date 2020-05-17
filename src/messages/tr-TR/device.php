@@ -17,6 +17,7 @@ return [
     'Search' => 'Arama',
     'Reset' => 'Sıfırla',
     'tag' => 'Etiket',
+    'tags' => 'Etiketler',
     'The requested page does not exist.' => 'İstenen sayfa mevcut değildir',
     'type' => 'Tür',
     'properties' => 'Özellikler',

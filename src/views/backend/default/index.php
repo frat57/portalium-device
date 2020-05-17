@@ -18,7 +18,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a(Module::t('Create Device'), ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a(Module::t('Create Type'), ['type'], ['class' => 'btn btn-success']) ?>
     </p>
     <p>
 

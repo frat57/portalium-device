@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 use portalium\device\Module;
 
 /* @var $this yii\web\View */
@@ -11,14 +11,28 @@ use portalium\device\Module;
 
 <div class="device-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'layout' => 'horizontal',
+        'action' => ['manage'],
+        'method' => 'get',
+        'fieldConfig' => [
+            'horizontalCssClasses' => [
+                'label' => 'col-sm-2',
+                'offset' => 'col-sm-offset-2',
+                'wrapper' => 'col-sm-4',
+            ],
+        ],
+    ]); ?>
 
+    <div class="row">
+        <div class="col-md-6">
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'api')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
-
+    <?= $form->field($model, 'description')->textarea(['rows' => 4]) ?>
+        </div>
+    </div>
     <div class="form-group">
         <?= Html::submitButton(Module::t('Save'), ['view'],['class' => 'btn btn-success']) ?>
     </div>

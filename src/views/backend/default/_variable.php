@@ -15,12 +15,18 @@ use portalium\device\models;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($variable, 'name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($variable, 'api')->textarea(['rows' => 1]) ?>
-
-    <?= $form->field($variable, 'unit')->textarea(['rows' => 1])?>
-
+    <div class="row">
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <img src="..." alt="...">
+                <div class="caption">
+                    <h3>Thumbnail label</h3>
+                    <p>...</p>
+                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="form-group">
         <?= Html::submitButton(Module::t('Save'), ['type'],['class' => 'btn btn-success']) ?>

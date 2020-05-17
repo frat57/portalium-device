@@ -17,7 +17,7 @@ $this->title = Module::t('Tag');
 <div class="tag-create">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_tag', [
+   <?= $this->render('_tag', [
         'tag' => $tag,
         'tagProvider' => $tagProvider,
     ]) ?>
