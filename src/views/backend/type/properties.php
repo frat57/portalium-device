@@ -11,17 +11,20 @@ use portalium\theme\widgets\GridView;
 /* @var $type portalium\device\models\Type */
 /* @var $form yii\widgets\ActiveForm */
 /* @var $model portalium\device\models\Properties */
+/* @var $searchModel portalium\device\models\PropertiesSearch */
 ?>
 
 <div class="type-form">
 
-    <?php $form = ActiveForm::begin(['action' => Url::toRoute(['variable/create','id' => $type])]); ?>
+    <?php $form = ActiveForm::begin(['action' => Url::toRoute(['properties/create','id' => $type])]); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 1]) ?>
 
     <?= $form->field($model, 'format')->dropDownList([$model->getTypes()])?>
+
+    <?= $form->field($model, 'value')->textarea(['rows' => 1]) ?>
 
 
     <div class="form-group">
@@ -31,6 +34,16 @@ use portalium\theme\widgets\GridView;
     <?php ActiveForm::end(); ?>
     <?=GridView::widget([
         'dataProvider' => $provider,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'name',
+            'description:ntext',
+            'format',
+            'value',
+
+            ['class' => 'yii\grid\ActionColumn'],
+        ]
     ]);
     ?>
 

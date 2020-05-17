@@ -1,16 +1,16 @@
 <?php
 
 use yii\helpers\Html;
-
+use portalium\device\Module;
 /* @var $this yii\web\View */
 /* @var $model portalium\device\models\Project */
 
-$this->title = Yii::t('app', 'Update Project: {name}', [
+$this->title = Module::t('Update Project: {name}', [
     'name' => $model->id,
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Projects'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Module::t('Projects'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->params['breadcrumbs'][] = Module::t('Update');
 ?>
 <div class="project-update">
 

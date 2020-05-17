@@ -3,6 +3,7 @@
 namespace portalium\device\controllers\backend;
 
 use Yii;
+use portalium\device\Module;
 use portalium\device\models\Project;
 use portalium\device\models\ProjectSearch;
 use portalium\web\Controller;
@@ -82,6 +83,6 @@ class ProjectController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(Module::t('The requested page does not exist.'));
     }
 }

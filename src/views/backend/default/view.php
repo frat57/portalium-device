@@ -25,6 +25,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a(Module::t('Select Type'), ['update', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Module::t('Add Tag'), ['tag', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Module::t('Add Variable'), ['variable', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Module::t('Add Properties'), ['properties', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= DetailView::widget([

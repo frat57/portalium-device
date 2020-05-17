@@ -18,7 +18,8 @@ class Project extends ActiveRecord
     {
         return [
             [['id', 'projectName', 'device_id', 'connType'], 'required'],
-            [['id', 'projectName', 'device_id', 'connType'], 'integer'],
+            [['id', 'device_id', 'connType'], 'integer'],
+            [['projectName'], 'string', 'max' => 20],
             [['id'], 'unique'],
             [['device_id'], 'exist', 'skipOnError' => true, 'targetClass' => Device::className(), 'targetAttribute' => ['device_id' => 'id']],
         ];

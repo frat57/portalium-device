@@ -12,6 +12,7 @@ use portalium\device\models\Tag;
 use portalium\device\models\Type;
 use portalium\web\Controller;
 use portalium\web\NotFoundHttpException;
+use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 use portalium\device\Module;
 
@@ -52,12 +53,16 @@ class DefaultController extends Controller
         return $this->render('view', [
             'properties' => $this->findModel($id),
         ]);
+        return $this->render('view', [
+            'tag' => $this->findModel($id),
+        ]);
     }
     //Type için create type controller
     public function actionType(){
         $type = new Type();
         $variable = new Variable();
         $properties = new Properties();
+        $tag = new Tag();
 
         if ($type->load(Yii::$app->request->post()) && $type->save()) {
             return $this->redirect(['view', 'id' => $type->id]);
@@ -68,10 +73,14 @@ class DefaultController extends Controller
         if ($properties->load(Yii::$app->request->post()) && $properties->save()) {
             return $this->redirect(['view', 'id' => $properties->id]);
         }
+        if ($tag->load(Yii::$app->request->post()) && $tag->save()) {
+            return $this->redirect(['view', 'id' => $tag->id]);
+        }
         return $this->render('type', [
             'type' => $type,
             'variable' => $variable,
             'properties'=> $properties,
+            'tag' => $tag
         ]);
     }
     //Properties için create type controller
@@ -79,6 +88,7 @@ class DefaultController extends Controller
         $type = new Type();
         $variable = new Variable();
         $properties = new Properties();
+        $tag = new Tag();
 
         if ($type->load(Yii::$app->request->post()) && $type->save()) {
             return $this->redirect(['view', 'id' => $type->id]);
@@ -89,10 +99,14 @@ class DefaultController extends Controller
         if ($properties->load(Yii::$app->request->post()) && $properties->save()) {
             return $this->redirect(['view', 'id' => $properties->id]);
         }
+        if ($tag->load(Yii::$app->request->post()) && $tag->save()) {
+            return $this->redirect(['view', 'id' => $tag->id]);
+        }
         return $this->render('properties', [
             'type' => $type,
             'variable' => $variable,
             'properties'=> $properties,
+            'tag' => $tag
         ]);
     }
     //Variable için create type controller
@@ -100,6 +114,7 @@ class DefaultController extends Controller
         $type = new Type();
         $variable = new Variable();
         $properties = new Properties();
+        $tag = new Tag();
 
         if ($type->load(Yii::$app->request->post()) && $type->save()) {
             return $this->redirect(['view', 'id' => $type->id]);
@@ -110,10 +125,27 @@ class DefaultController extends Controller
         if ($properties->load(Yii::$app->request->post()) && $properties->save()) {
             return $this->redirect(['view', 'id' => $properties->id]);
         }
+        if ($tag->load(Yii::$app->request->post()) && $tag->save()) {
+            return $this->redirect(['view', 'id' => $tag->id]);
+        }
         return $this->render('variable', [
             'type' => $type,
             'variable' => $variable,
             'properties'=> $properties,
+            'tag' => $tag
+        ]);
+    }
+    //Tag için create type controller
+    public function actionTag($id){
+        $tag = new Tag();
+        $tagQuery = Tag::find()->where(['device_id' => $id]);
+        $tagProvider = new ActiveDataProvider(['query' => $tagQuery]);
+        if ($tag->load(Yii::$app->request->post()) && $tag->save()) {
+            return $this->redirect(['view', 'id' => $tag->id]);
+        }
+        return $this->render('tag', [
+            'tag' => $tag,
+            'tagProvider' => $tagProvider
         ]);
     }
 
@@ -175,6 +207,9 @@ class DefaultController extends Controller
         }
         if (($variable = Variable::findOne($id)) !== null) {
             return $variable;
+        }
+        if (($tag = Tag::findOne($id)) !== null) {
+            return $tag;
         }
 
         throw new NotFoundHttpException(Module::t('The requested page does not exist.'));

@@ -22,5 +22,6 @@ return [
     'properties' => 'Özellikler',
     'Update Device' => 'Cihazı Güncelle',
     'Update' => 'Güncelle',
+    'Update Type' => 'Tipi Güncelle',
     'variable' => 'Değişken'
 ];

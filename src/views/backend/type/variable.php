@@ -31,6 +31,15 @@ use portalium\theme\widgets\GridView;
     <?php ActiveForm::end(); ?>
     <?=GridView::widget([
     'dataProvider' => $provider,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'name',
+            'api',
+            'unit',
+
+            ['class' => 'yii\grid\ActionColumn'],
+            ]
     ]);
     ?>
 
