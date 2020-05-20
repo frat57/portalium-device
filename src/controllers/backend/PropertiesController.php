@@ -9,6 +9,12 @@ use Yii;
 class PropertiesController extends Controller
 {
 
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
     public function actionCreate($id)
     {
         $model = new Properties();

@@ -23,7 +23,7 @@ class Properties extends ActiveRecord
     public function rules()
     {
         return [
-            [['name',  'format'], 'required'],
+            [['name'], 'required'],
             [['key', 'description', 'value'], 'string'],
             [['device_id', 'type_id'], 'integer'],
             ['format', 'default', 'value'=> self::type_text],

@@ -30,9 +30,6 @@ use dosamigos\selectize\SelectizeTextInput;
         ],
     ])->hint('Tagleri ekleyiniz') ?>
 
-    <div class="form-group">
-        <?= Html::submitButton(Module::t('Save'), ['view'],['class' => 'btn btn-success']) ?>
-    </div>
 
     <?php ActiveForm::end(); ?>
 

@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use portalium\device\Module;
 use portalium\device\models;
-
+use portalium\theme\widgets\GridView;
 /* @var $this yii\web\View */
 /* @var $type portalium\device\models\Type */
 /* @var $form yii\widgets\ActiveForm */
@@ -16,10 +16,6 @@ use portalium\device\models;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($properties, 'name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($properties, 'description')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($properties, 'format')->dropDownList([$properties->getTypes()])?>
 
     <?= $form->field($properties, 'value')->textarea(['rows' => 1]) ?>
 

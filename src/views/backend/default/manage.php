@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use portalium\device\Module;
 use portalium\theme\widgets\Tabs;
+use yii\widgets\ListView;
 /* @var $this yii\web\View */
 /* @var $model portalium\device\models\Device */
 
@@ -16,12 +17,26 @@ $this->params['breadcrumbs'][] = Module::t('Update');
     <h1><?= Html::encode($this->title) ?></h1>
 
    <?= $this->render('update', [
-           'model' => $model
+           'model' => $model,
+            'tag' => $tag,
+        'tagProvider' => $tagProvider,
+       'properties' => $properties,
+       'propertiesProvider' => $propertiesProvider
        ])
    ?>
-    <?= $this->render('_list_item', [
-        'model' => $model
-    ])
+    <?=
+    ListView::widget([
+        'dataProvider' => $variableProvider,
+        'options' => [
+            'tag' => 'div',
+            'class' => 'list-wrapper',
+            'id' => 'list-wrapper',
+        ],
+        'summary'=> false,
+        'itemView' => function ($model, $key, $index, $widget) {
+            return $this->render('_list_variable', ['model' => $model]);
+        }
+    ]);
     ?>
 
 </div>

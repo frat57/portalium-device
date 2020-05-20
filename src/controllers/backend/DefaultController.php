@@ -49,26 +49,20 @@ class DefaultController extends Controller
     //Properties için create type controller
     public function actionProperties(){
         $properties = new Properties();
-
+        $model->device_id = $id;
         if ($properties->load(Yii::$app->request->post()) && $properties->save()) {
-            return $this->redirect(['default/manage', 'id' => $properties->id]);
+            return $this->redirect(['default/manage', 'id' => $id]);
         }
 
-        return $this->render('properties', [
-            'properties'=> $properties,
-        ]);
     }
     //Variable için create type controller
     public function actionVariable(){
         $variable = new Variable();
-
+        $model->device_id = $id;
         if ($variable->load(Yii::$app->request->post()) && $variable->save()) {
-            return $this->redirect(['default/manage', 'id' => $variable->id]);
+            return $this->redirect(['default/manage', 'id' => $id]);
         }
 
-        return $this->render('variable', [
-            'variable' => $variable,
-        ]);
     }
     //Tag için create type controller
     public function actionTag($id){
@@ -99,11 +93,19 @@ class DefaultController extends Controller
         $model = $this->findModel($id);
         $variable = new Variable();
         $variableQuery = Variable::find()->where(['device_id' => $id]);
-        $variableProvider = new ActiveDataProvider(['query' => $variableQuery]);
+        $variableProvider = new ActiveDataProvider(['query' => $variableQuery ,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+            ]);
         $properties = new Properties();
         $propertiesQuery = Properties::find()->where(['device_id' => $id]);
-        $propertiesProvider = new ActiveDataProvider(['query' => $propertiesQuery]);
-
+        $propertiesProvider = new ActiveDataProvider(['query' => $propertiesQuery,
+            'pagination' => false,
+        ]);
+        $tag = new Tag();
+        $tagQuery = Tag::find()->where(['device_id' => $id]);
+        $tagProvider = new ActiveDataProvider(['query' => $tagQuery]);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['manage', 'id' => $model->id]);
         }
@@ -113,7 +115,9 @@ class DefaultController extends Controller
             'variable' => $variable,
             'variableProvider' => $variableProvider,
             'properties' => $properties,
-            'propertiesProvider' => $propertiesProvider
+            'propertiesProvider' => $propertiesProvider,
+            'tag' => $tag,
+            'tagProvider' => $tagProvider
         ]);
     }
 
@@ -139,6 +143,13 @@ class DefaultController extends Controller
         if (($model = Device::findOne($id)) !== null) {
             return $model;
         }
+        if (($properties = Properties::findOne($id)) !== null) {
+            return $properties;
+        }
+        if (($variable = Variable::findOne($id)) !== null) {
+            return $variable;
+        }
+
 
         throw new NotFoundHttpException(Module::t('The requested page does not exist.'));
     }

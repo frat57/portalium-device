@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Module::t('Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Module::t('Update'), ['manage', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(Module::t('Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -25,10 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a(Module::t('Select Type'), ['update', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
-        <?= Html::a(Module::t('Add Tag'), ['tag', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
-        <?= Html::a(Module::t('Add Variable'), ['variable', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
-        <?= Html::a(Module::t('Add Properties'), ['properties', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= DetailView::widget([
