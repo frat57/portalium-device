@@ -12,11 +12,14 @@ use portalium\device\Module;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'projectName')->textInput() ?>
 
-    <?= $form->field($model, 'device_id')->textInput() ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'connType')->textInput() ?>
+    <?= $form->field($model, 'device_name')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'conn_type')->dropDownList([$model->getTypes()]) ?>
+
+    <?= $form->field($model, 'app_config')->textarea(['rows' => 1]) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Module::t('Save'), ['class' => 'btn btn-success']) ?>

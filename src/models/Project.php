@@ -2,6 +2,7 @@
 
 namespace portalium\device\models;
 
+use portalium\helpers\ObjectHelper;
 use Yii;
 use yii\db\ActiveRecord;
 use portalium\device\Module;
@@ -17,11 +18,10 @@ class Project extends ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'projectName', 'device_id', 'connType'], 'required'],
-            [['id', 'device_id', 'connType'], 'integer'],
-            [['projectName'], 'string', 'max' => 20],
-            [['id'], 'unique'],
-            [['device_id'], 'exist', 'skipOnError' => true, 'targetClass' => Device::className(), 'targetAttribute' => ['device_id' => 'id']],
+            [['name'], 'required'],
+            [['id'], 'integer'],
+            [['app_config', 'conn_type'], 'string'],
+            [['name', 'device_name'], 'string', 'max' => 20],
         ];
     }
 
@@ -29,19 +29,20 @@ class Project extends ActiveRecord
     {
         return [
             'id' => Module::t('ID'),
-            'projectName' => Module::t('Project Name'),
-            'device_id' => Module::t('Device ID'),
-            'connType' => Module::t('Conn Type'),
+            'name' => Module::t('Name'),
+            'device_name' => Module::t('Device Name'),
+            'conn_type' => Module::t('Conn Type'),
+            'app_config' => Module::t('App Config'),
         ];
     }
 
-    public function getDevice()
+    public function getDevices()
     {
-        return $this->hasOne(Device::className(), ['id' => 'device_id']);
+        return $this->hasMany(Device::className(), ['device_id' => 'id']);
     }
-
     public static function find()
     {
         return new ProjectQuery(get_called_class());
     }
+
 }

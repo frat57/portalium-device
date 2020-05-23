@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
 use portalium\device\Module;
 /* @var $this yii\web\View */
 /* @var $searchModel portalium\device\models\ProjectSearch */
@@ -19,7 +18,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a(Module::t('Create Project'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
@@ -29,14 +27,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'projectName',
-            'device_id',
-            'connType',
+            'name',
+            'device_name',
+            'conn_type',
+            'app_config:ntext',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
 
 </div>

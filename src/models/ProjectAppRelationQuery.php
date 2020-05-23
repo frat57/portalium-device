@@ -3,11 +3,11 @@
 namespace portalium\device\models;
 
 /**
- * This is the ActiveQuery class for [[Project]].
+ * This is the ActiveQuery class for [[ProjectAppRelation]].
  *
- * @see Project
+ * @see ProjectAppRelation
  */
-class ProjectQuery extends \yii\db\ActiveQuery
+class ProjectAppRelationQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -16,7 +16,7 @@ class ProjectQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Project[]|array
+     * @return ProjectAppRelation[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class ProjectQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Project|array|null
+     * @return ProjectAppRelation|array|null
      */
     public function one($db = null)
     {

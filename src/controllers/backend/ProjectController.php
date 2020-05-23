@@ -2,11 +2,14 @@
 
 namespace portalium\device\controllers\backend;
 
+use portalium\device\models\Device;
+use portalium\device\models\Properties;
+use portalium\device\models\Variable;
 use Yii;
-use portalium\device\Module;
 use portalium\device\models\Project;
 use portalium\device\models\ProjectSearch;
 use portalium\web\Controller;
+use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -57,6 +60,7 @@ class ProjectController extends Controller
         ]);
     }
 
+
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -75,6 +79,22 @@ class ProjectController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+    public function actionManage($id){
+        $model = $this->findModel($id);
+        $device = new Device();
+        $deviceQuery = Device::find()->where(['id' => $id]);
+        $deviceProvider = new ActiveDataProvider(['query' => $deviceQuery]);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['manage', 'id' => $model->id]);
+        }
+
+        return $this->render('manage',[
+            'model' => $model,
+            'device' => $device,
+            'deviceProvider' => $deviceProvider,
+        ]);
     }
 
     protected function findModel($id)

@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = ['label' => Module::t('Device'), 'url' => ['ind
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Module::t('Update');
 ?>
-<div class="device-update">
+<div class="device-update"style="float: left;width: 25%">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -24,6 +24,8 @@ $this->params['breadcrumbs'][] = Module::t('Update');
        'propertiesProvider' => $propertiesProvider
        ])
    ?>
+</div>
+<div class="device-list" style="float: left;width: 75%">
     <?=
     ListView::widget([
         'dataProvider' => $variableProvider,
@@ -38,5 +40,5 @@ $this->params['breadcrumbs'][] = Module::t('Update');
         }
     ]);
     ?>
-
+</div>
 </div>

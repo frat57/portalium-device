@@ -6,7 +6,8 @@ use yii\helpers\HtmlPurifier;
 /* @var $model portalium\device\models\Device */
 ?>
 
-<article class="item" data-key="<?= $model->id; ?>">
+<article style="width:25%;border:solid 1px #ccc;float: left;"
+         class="item" data-key="<?= $model->id; ?>">
     <div style="float: left;">
         <div style="width: 500px;">
     <h2 class="title">

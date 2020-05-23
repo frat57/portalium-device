@@ -25,6 +25,10 @@ use yii\grid\GridView;
 
                 <?= $form->field($model, 'description')->textarea(['rows' => 4]) ?>
 
+                <div class="form-group">
+                    <?= Html::submitButton(Module::t('Save'), ['class' => 'btn btn-success']) ?>
+                </div>
+
                 <?= $this->render('_tag', [
                     'tag' => $tag,
                     'tagProvider' => $tagProvider,

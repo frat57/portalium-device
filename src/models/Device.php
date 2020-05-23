@@ -54,7 +54,10 @@ class Device extends ActiveRecord
     {
         return $this->hasMany(Type::className(), ['device_id' => 'id']);
     }
-
+    public function getProjects()
+    {
+        return $this->hasMany(Project::className(), ['project_id' => 'id']);
+    }
 
     public function getVariables()
     {

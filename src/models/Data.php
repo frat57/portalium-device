@@ -23,6 +23,8 @@ class Data extends ActiveRecord
             [['device_id', 'value', 'type'], 'required'],
             [['device_id', 'type'], 'integer'],
             [['value'], 'string'],
+            ['type', 'default', 'value'=> self::type_intfalse],
+            ['type', 'in' ,'range'=> self::getTypes()],
             [['created_at'], 'safe'],
             [['device_id'], 'exist', 'skipOnError' => true, 'targetClass' => Device::className(), 'targetAttribute' => ['device_id' => 'id']],
         ];
