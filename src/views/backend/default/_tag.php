@@ -11,7 +11,7 @@ use dosamigos\selectize\SelectizeTextInput;
 /* @var $tag portalium\device\models\Tag */
 ?>
 
-<div class="type-form">
+<div class="tag-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -23,9 +23,9 @@ use dosamigos\selectize\SelectizeTextInput;
         'options' => ['class' => 'form-control'],
         'clientOptions' => [
             'plugins' => ['remove_button'],
-            'valueField' => 'Tag',
-            'labelField' => 'Tag',
-            'searchField' => ['Tag'],
+            'valueField' => 'name',
+            'labelField' => 'name',
+            'searchField' => ['name'],
             'create' => true,
         ],
     ])->hint('Tagleri ekleyiniz') ?>

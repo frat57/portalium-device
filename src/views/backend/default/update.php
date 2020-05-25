@@ -7,9 +7,6 @@ use portalium\device\Module;
 /* @var $model portalium\device\models\Device */
 /* @var $tag portalium\device\models\Tag */
 
-$this->title = Module::t('Update Device: {name}', [
-    'name' => $model->name,
-]);
 $this->params['breadcrumbs'][] = ['label' => Module::t('Devices'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Module::t('Update');
@@ -23,7 +20,8 @@ $this->params['breadcrumbs'][] = Module::t('Update');
         'tag' => $tag,
         'tagProvider' => $tagProvider,
         'properties' => $properties,
-        'propertiesProvider' => $propertiesProvider
+        'propertiesProvider' => $propertiesProvider,
+        'device' => $model->id
     ]) ?>
 
 </div>

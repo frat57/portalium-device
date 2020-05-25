@@ -47,21 +47,27 @@ class DefaultController extends Controller
         ]);
     }
     //Properties için create type controller
-    public function actionProperties(){
+    public function actionProperties($id){
         $properties = new Properties();
-        $model->device_id = $id;
+        $properties->device_id = $id;
         if ($properties->load(Yii::$app->request->post()) && $properties->save()) {
             return $this->redirect(['default/manage', 'id' => $id]);
         }
+        return $this->render('properties', [
+            'properties' => $properties,
+        ]);
 
     }
     //Variable için create type controller
-    public function actionVariable(){
+    public function actionVariable($id){
         $variable = new Variable();
-        $model->device_id = $id;
+        $variable->device_id = $id;
         if ($variable->load(Yii::$app->request->post()) && $variable->save()) {
             return $this->redirect(['default/manage', 'id' => $id]);
         }
+        return $this->render('variable', [
+            'variable' => $variable,
+        ]);
 
     }
     //Tag için create type controller

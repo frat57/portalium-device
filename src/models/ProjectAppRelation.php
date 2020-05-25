@@ -11,7 +11,7 @@ class ProjectAppRelation extends ActiveRecord
 
     public static function tableName()
     {
-        return 'project_app_relation';
+        return 'app_projects';
     }
 
     public function rules()

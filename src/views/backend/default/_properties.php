@@ -11,7 +11,7 @@ use portalium\theme\widgets\GridView;
 /* @var $properties portalium\device\models\Properties */
 ?>
 
-<div class="type-form">
+<div class="properties-form">
 
     <?php $form = ActiveForm::begin(); ?>
 

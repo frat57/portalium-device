@@ -17,6 +17,14 @@ class VariableController extends Controller
             return $this->redirect(['type/manage', 'id' => $id , '#' =>'w3-tab1']);
         }
     }
+
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
+
     protected function findModel($id)
     {
         if (($model = Variable::findOne($id)) !== null) {

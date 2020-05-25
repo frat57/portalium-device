@@ -17,7 +17,7 @@ use portalium\device\Module;
 
     <?= $form->field($model, 'device_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'conn_type')->dropDownList([$model->getTypes()]) ?>
+    <?= $form->field($model, 'conn_type')->textInput() ?>
 
     <?= $form->field($model, 'app_config')->textarea(['rows' => 1]) ?>
 

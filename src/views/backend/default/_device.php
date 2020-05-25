@@ -6,6 +6,8 @@ use portalium\device\Module;
 use yii\widgets\Pjax;
 use yii\widgets\ListView;
 use yii\grid\GridView;
+use yii\helpers\Url;
+use yii\bootstrap\modal;
 /* @var $this yii\web\View */
 /* @var $model portalium\device\models\Device */
 /* @var $form yii\widgets\ActiveForm */
@@ -32,6 +34,7 @@ use yii\grid\GridView;
                 <?= $this->render('_tag', [
                     'tag' => $tag,
                     'tagProvider' => $tagProvider,
+                    'device' => $model->id
                 ])
                 ?>
 
@@ -40,20 +43,40 @@ use yii\grid\GridView;
                     'dataProvider' => $propertiesProvider,
                     'summary'=> false,
                     'columns' => [
-                        ['class' => 'yii\grid\SerialColumn'],
+
                         'name',
                         'value',
-                        ['class' => 'yii\grid\ActionColumn'],
+                        [
+                            'class' => 'yii\grid\ActionColumn',
+                            'header' => 'Actions',
+                            'headerOptions' => ['style' => 'color:#337ab7'],
+                            'template' => '{update}{delete}',
+                            'buttons' => [
+                                'update' => function ($url, $model) {
+                                    return Html::a('<span class="glyphicon glyphicon-pencil"></span>', Url::toRoute(['properties','id' => $model->id]) ,[
+                                        'title' => Module::t('View'),
+                                            ]);
+                                },
+                                'delete' => function($url, $model){
+                                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->id], [
+                                        'class' => '',
+                                        'data' => [
+                                            'confirm' => 'Are you absolutely sure ? You will lose all the information about this user with this action.',
+                                            'method' => 'post',
+                                        ],
+                                    ]); }
+                            ],
+                        ],
                     ],
                 ]); ?>
-                <?= $this->render('_properties', [
-                    'properties' => $properties,
-                    'propertiesProvider' => $propertiesProvider,
-                ])
-                ?>
+                <p>
+                    <?= Html::a(Module::t('Add Properties'), ['properties', 'id' => $device ], ['class' => 'btn btn-success']) ?>
+                </p>
+
                 <?php Pjax::end() ?>
             </div>
         </div>
         <?php ActiveForm::end(); ?>
     </div>
 </div>
+

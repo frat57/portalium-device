@@ -32,15 +32,39 @@ use portalium\theme\widgets\GridView;
         'dataProvider' => $Provider,
         'summary'=> false,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
             'name',
             'api',
             'description',
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ]
-    ]);
-    ?>
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'header' => 'Actions',
+                'headerOptions' => ['style' => 'color:#337ab7'],
+                'template' => '{view}{update}{delete}',
+                'buttons' => [
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', Url::toRoute(['default/view','id' => $model->id]), [
+                            'title' => Module::t('device-view'),
+                        ]);
+                    },
+
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', Url::toRoute(['default/manage','id' => $model->id]), [
+                            'title' => Module::t('device-update'),
+                        ]);
+                    },
+                    'delete' => function($url, $model){
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->id], [
+                            'class' => '',
+                            'data' => [
+                                'confirm' => 'Are you absolutely sure ? You will lose all the information about this user with this action.',
+                                'method' => 'post',
+                            ],
+                        ]); }
+                ],
+            ],
+        ],
+    ]); ?>
 
 </div>

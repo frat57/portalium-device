@@ -2,19 +2,15 @@
 
 namespace portalium\device\controllers\backend;
 
-use portalium\device\models\Device;
-use portalium\device\models\Properties;
-use portalium\device\models\Variable;
 use Yii;
-use portalium\device\models\Project;
-use portalium\device\models\ProjectSearch;
+use portalium\device\models\App;
+use portalium\device\models\AppSearch;
 use portalium\web\Controller;
-use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 
-class ProjectController extends Controller
+class AppController extends Controller
 {
 
     public function behaviors()
@@ -31,7 +27,7 @@ class ProjectController extends Controller
 
     public function actionIndex()
     {
-        $searchModel = new ProjectSearch();
+        $searchModel = new AppSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -49,7 +45,7 @@ class ProjectController extends Controller
 
     public function actionCreate()
     {
-        $model = new Project();
+        $model = new App();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -59,7 +55,6 @@ class ProjectController extends Controller
             'model' => $model,
         ]);
     }
-
 
     public function actionUpdate($id)
     {
@@ -80,32 +75,13 @@ class ProjectController extends Controller
 
         return $this->redirect(['index']);
     }
-    public function actionManage($id){
-        $model = $this->findModel($id);
-        $device = new Device();
-        $deviceQuery = Device::find()->where(['id' => $id]);
-        $deviceProvider = new ActiveDataProvider(['query' => $deviceQuery]);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['manage', 'id' => $model->id]);
-        }
-
-        return $this->render('manage',[
-            'model' => $model,
-            'device' => $device,
-            'deviceProvider' => $deviceProvider,
-        ]);
-    }
 
     protected function findModel($id)
     {
-        if (($model = Project::findOne($id)) !== null) {
+        if (($model = App::findOne($id)) !== null) {
             return $model;
         }
-        if (($device = Device::findOne($id)) !== null) {
-            return $device;
-        }
 
-        throw new NotFoundHttpException(Module::t('The requested page does not exist.'));
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 }

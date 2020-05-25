@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use portalium\device\Module;
+use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $searchModel portalium\device\models\TypeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -41,13 +42,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{view}{update}{delete}',
                 'buttons' => [
                     'view' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', Url::toRoute(['type/view','id' => $model->id]), [
                             'title' => Module::t('type-view'),
                         ]);
                     },
 
                     'update' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', Url::toRoute(['type/manage','id' => $model->id]), [
                             'title' => Module::t('type-update'),
                         ]);
                     },
@@ -60,19 +61,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                  ]); }
                 ],
-
-                'urlCreator' => function ($action, $model, $key, $index) {
-                    if ($action === 'view') {
-                        $url ='type/view?id='.$model->id;
-                        return $url;
-                    }
-
-                    if ($action === 'update') {
-                        $url ='type/manage?id='.$model->id;
-                        return $url;
-                    }
-
-                }
                 ],
         ],
     ]); ?>

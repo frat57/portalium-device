@@ -13,7 +13,7 @@ use portalium\theme\widgets\GridView;
 /* @var $model portalium\device\models\Variable */
 ?>
 
-<div class="type-form">
+<div class="variable-form">
 
     <?php $form = ActiveForm::begin(['action' => Url::toRoute(['variable/create','id' => $type])]); ?>
 
@@ -33,15 +33,28 @@ use portalium\theme\widgets\GridView;
     'dataProvider' => $provider,
         'summary'=> false,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
             'name',
             'api',
             'unit',
 
-            ['class' => 'yii\grid\ActionColumn'],
-            ]
-    ]);
-    ?>
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'header' => 'Actions',
+                'headerOptions' => ['style' => 'color:#337ab7'],
+                'template' => '{delete}',
+                'buttons' => [
+                    'delete' => function($url, $model){
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->id], [
+                            'class' => '',
+                            'data' => [
+                                'confirm' => 'Are you absolutely sure ? You will lose all the information about this user with this action.',
+                                'method' => 'post',
+                            ],
+                        ]); }
+                ],
+            ],
+        ],
+    ]); ?>
 
 </div>

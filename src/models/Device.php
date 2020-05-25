@@ -5,6 +5,8 @@ namespace portalium\device\models;
 use Yii;
 use yii\db\ActiveRecord;
 use portalium\device\Module;
+use dosamigos\selectize\SelectizeTextInput;
+use dosamigos\taggable\Taggable;
 
 class Device extends ActiveRecord
 {
@@ -13,16 +15,27 @@ class Device extends ActiveRecord
     {
         return '{{%device}}';
     }
+    public function behaviors()
+    {
+        return [
+            // for different configurations, please see the code
+            // we have created tables and relationship in order to
+            // use defaults settings
+            'class' => Taggable::className(),
+        ];
+    }
 
     public function rules()
     {
         return [
             [['name', 'api'], 'required'],
+            [['tag_name'], 'safe'],
             [['description'], 'string'],
             [['type_id'], 'integer'],
             [['name', 'api'], 'string', 'max' => 64],
         ];
     }
+
 
     public function attributeLabels()
     {
@@ -47,7 +60,7 @@ class Device extends ActiveRecord
 
     public function getTags()
     {
-        return $this->hasMany(Tag::className(), ['device_id' => 'id']);
+        return $this->hasMany(Tag::className(), ['id' => 'tag_id'])->viaTable('tbl_tour_tag_assn', ['device_id' => 'id']);
     }
 
     public function getTypes()

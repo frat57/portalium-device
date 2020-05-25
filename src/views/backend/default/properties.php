@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use portalium\device\Module;
 use yii\helpers\Url;
+use yii\bootstrap\modal;
 use portalium\theme\widgets\GridView;
 /* @var $this yii\web\View */
 /* @var $type portalium\device\models\Type */
@@ -12,11 +13,12 @@ use portalium\theme\widgets\GridView;
 /* @var $form yii\widgets\ActiveForm */
 
 $this->title = Module::t('Device Properties');
-
 ?>
+
 <div class="device-form">
 
-    <?php $form = ActiveForm::begin(['action' => Url::toRoute(['properties/create','id' => $properties])]); ?>
+    <?php $form = ActiveForm::begin(); ?>
+
 
     <?= $form->field($properties, 'name')->textInput(['maxlength' => true]) ?>
 
@@ -32,19 +34,4 @@ $this->title = Module::t('Device Properties');
     </div>
 
     <?php ActiveForm::end(); ?>
-    <?=GridView::widget([
-        'dataProvider' => $propertiesProvider,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'name',
-            'description:ntext',
-            'format',
-            'value',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ]
-    ]);
-    ?>
-
 </div>

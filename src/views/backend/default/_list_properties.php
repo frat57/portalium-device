@@ -19,7 +19,7 @@ $this => registerJs(
     });
     </script>
 
-<div class="type-form">
+<div class="properties-form">
     <?php Pjax::begin(['id' => 'new_properties', 'timeout' => false]); ?>
     <?php $form = ActiveForm::begin(['options' => ['data-pjax' => true ]]); ?>
 

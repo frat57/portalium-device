@@ -31,6 +31,7 @@ class TblTourTagAssn extends ActiveRecord
         ];
     }
 
+
     public static function find()
     {
         return new TblTourTagAssnQuery(get_called_class());

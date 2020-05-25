@@ -12,13 +12,11 @@ use portalium\device\Module;
 $this->title = Module::t('Variable');
 
 ?>
-<div class="properties-create">
+<div class="variable-create">
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_variable', [
-        'type' => $type,
         'variable' => $variable,
-        'properties' => $properties,
     ]) ?>
 
 </div>
