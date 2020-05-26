@@ -2,10 +2,12 @@
 
 namespace portalium\device\controllers\backend;
 
+use portalium\device\models\Project;
 use Yii;
 use portalium\device\models\App;
 use portalium\device\models\AppSearch;
 use portalium\web\Controller;
+use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -69,6 +71,25 @@ class AppController extends Controller
         ]);
     }
 
+    public function actionManage($id){
+        $model = $this->findModel($id);
+        $project = new Project();
+        $projectQuery = Project::find();
+        $projectProvider = new ActiveDataProvider(['query' => $projectQuery,
+            'pagination' => [
+            'pageSize' => 10,
+        ],
+        ]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['manage', 'id' => $model->id]);
+        }
+
+        return $this->render('manage',[
+            'model' => $model,
+            'project' => $project,
+            'projectProvider' => $projectProvider
+        ]);
+    }
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
@@ -82,6 +103,6 @@ class AppController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(Module::t('The requested page does not exist.'));
     }
 }

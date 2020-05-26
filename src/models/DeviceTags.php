@@ -6,12 +6,12 @@ use Yii;
 use yii\db\ActiveRecord;
 use portalium\device\Module;
 
-class TblTourTagAssn extends ActiveRecord
+class DeviceTags extends ActiveRecord
 {
 
     public static function tableName()
     {
-        return 'tbl_tour_tag_assn';
+        return 'device_tags';
     }
 
     public function rules()
@@ -26,14 +26,13 @@ class TblTourTagAssn extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'device_id' => Module::t('Tour ID'),
+            'device_id' => Module::t('Device ID'),
             'tag_id' => Module::t('Tag ID'),
         ];
     }
 
-
     public static function find()
     {
-        return new TblTourTagAssnQuery(get_called_class());
+        return new DeviceTagsQuery(get_called_class());
     }
 }

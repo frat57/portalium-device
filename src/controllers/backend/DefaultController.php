@@ -127,6 +127,16 @@ class DefaultController extends Controller
         ]);
     }
 
+    public function actionTypeUpdate($id)
+    {
+        $type = $this->findModel($id);
+
+        if ($type->load(Yii::$app->request->post()) && $type->save()) {
+            return $this->redirect(['default/manage', 'id' => $type->id]);
+        }
+
+    }
+
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);

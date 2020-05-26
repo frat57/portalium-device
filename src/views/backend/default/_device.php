@@ -30,6 +30,12 @@ use yii\bootstrap\modal;
                 <div class="form-group">
                     <?= Html::submitButton(Module::t('Save'), ['class' => 'btn btn-success']) ?>
                 </div>
+                <?php Modal::begin([
+                    'header' => '<h2>Select Type</h2>',
+                    'toggleButton' => ['class' =>  'btn btn-primary','label'=>'Select Type']
+                ]); ?>
+
+                <?php Modal::end(); ?>
 
                 <?= $this->render('_tag', [
                     'tag' => $tag,
@@ -38,7 +44,6 @@ use yii\bootstrap\modal;
                 ])
                 ?>
 
-                <?php Pjax::begin(['id' => 'properties']) ?>
                 <?= GridView::widget([
                     'dataProvider' => $propertiesProvider,
                     'summary'=> false,
@@ -69,14 +74,37 @@ use yii\bootstrap\modal;
                         ],
                     ],
                 ]); ?>
-                <p>
-                    <?= Html::a(Module::t('Add Properties'), ['properties', 'id' => $device ], ['class' => 'btn btn-success']) ?>
-                </p>
 
-                <?php Pjax::end() ?>
             </div>
         </div>
         <?php ActiveForm::end(); ?>
     </div>
+
+    <div class="properties-form">
+        <p>
+            <?php Modal::begin([
+                'header' => '<h2>Create Properties</h2>',
+                'toggleButton' => ['class' =>  'btn btn-success','label'=>'Add Properties']
+            ]); ?>
+            <?php $form = ActiveForm::begin(); ?>
+
+            <?= $form->field($properties, 'name')->textInput(['maxlength' => true]) ?>
+
+            <?= $form->field($properties, 'key')->textarea(['rows' => 1]) ?>
+
+            <?= $form->field($properties, 'description')->textarea(['rows' => 1]) ?>
+
+            <?= $form->field($properties, 'format')->dropDownList($properties->getTypes()) ?>
+
+        <div class="form-group">
+            <?= Html::submitButton(Module::t('Save'), ['create'],['class' => 'btn btn-success']) ?>
+        </div>
+
+        <?php ActiveForm::end(); ?>
+
+        <?php Modal::end(); ?>
+        </p>
+    </div>
+
 </div>
 

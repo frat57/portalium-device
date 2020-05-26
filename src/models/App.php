@@ -17,11 +17,9 @@ class App extends ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'name', 'config'], 'required'],
+            [['name'], 'required'],
             [['id'], 'integer'],
-            [['config'], 'string'],
             [['name'], 'string', 'max' => 20],
-            [['id'], 'unique'],
         ];
     }
 
@@ -30,13 +28,12 @@ class App extends ActiveRecord
         return [
             'id' => Module::t('ID'),
             'name' => Module::t('Name'),
-            'config' => Module::t('Config'),
         ];
     }
 
-    public function getProjectAppRelations()
+    public function getAppProjects()
     {
-        return $this->hasMany(ProjectAppRelation::className(), ['app_id' => 'id']);
+        return $this->hasMany(AppProjects::className(), ['app_id' => 'id']);
     }
 
     public static function find()

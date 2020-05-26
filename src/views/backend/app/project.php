@@ -1,38 +1,44 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
-use portalium\device\Module;
 use yii\helpers\Url;
+use yii\widgets\ActiveForm;
+use portalium\device\Module;
+use portalium\device\models;
+use portalium\theme\widgets\GridView;
+
 /* @var $this yii\web\View */
-/* @var $searchModel portalium\device\models\ProjectSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = Module::t('Projects');
-$this->params['breadcrumbs'][] = $this->title;
+/* @var $type portalium\device\models\Type */
+/* @var $form yii\widgets\ActiveForm */
+/* @var $model portalium\device\models\Variable */
 ?>
-<div class="project-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="project-form">
 
-    <p>
-        <?= Html::a(Module::t('Create Project'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <?php $form = ActiveForm::begin(['action' => Url::toRoute(['project/create','id' => $app])]); ?>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+    <?= $form->field($model, 'device_name')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'conn_type')->textInput(['maxlength' => true])?>
+
+    <?= $form->field($model, 'app_config')->textarea(['rows' => 1])?>
+
+    <div class="form-group">
+        <?= Html::submitButton(Module::t('Save'), ['type'],['class' => 'btn btn-success']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+    <?=GridView::widget([
+        'dataProvider' => $provider,
+        'summary'=> false,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'name',
             'device_name',
             'conn_type',
-            'app_config:ntext',
-
+            'app_config',
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => 'Actions',
@@ -41,13 +47,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', Url::toRoute(['project/view','id' => $model->id]), [
-                            'title' => Module::t('type-view'),
+                            'title' => Module::t('project-view'),
                         ]);
                     },
-
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', Url::toRoute(['project/manage','id' => $model->id]), [
-                            'title' => Module::t('type-update'),
+                            'title' => Module::t('project-update'),
                         ]);
                     },
                     'delete' => function($url, $model){
@@ -62,6 +67,5 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
-
 
 </div>

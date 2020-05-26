@@ -18,7 +18,7 @@ class AppSearch extends App
     {
         return [
             [['id'], 'integer'],
-            [['name', 'config'], 'safe'],
+            [['name'], 'safe'],
         ];
     }
 
@@ -61,8 +61,7 @@ class AppSearch extends App
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'config', $this->config]);
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

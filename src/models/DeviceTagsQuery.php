@@ -3,11 +3,11 @@
 namespace portalium\device\models;
 
 /**
- * This is the ActiveQuery class for [[TblTourTagAssn]].
+ * This is the ActiveQuery class for [[DeviceTags]].
  *
- * @see TblTourTagAssn
+ * @see DeviceTags
  */
-class TblTourTagAssnQuery extends \yii\db\ActiveQuery
+class DeviceTagsQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -16,7 +16,7 @@ class TblTourTagAssnQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return TblTourTagAssn[]|array
+     * @return DeviceTags[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class TblTourTagAssnQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return TblTourTagAssn|array|null
+     * @return DeviceTags|array|null
      */
     public function one($db = null)
     {

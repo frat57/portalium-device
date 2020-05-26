@@ -60,7 +60,7 @@ class Device extends ActiveRecord
 
     public function getTags()
     {
-        return $this->hasMany(Tag::className(), ['id' => 'tag_id'])->viaTable('tbl_tour_tag_assn', ['device_id' => 'id']);
+        return $this->hasMany(Tag::className(), ['id' => 'tag_id'])->viaTable('device_tags', ['device_id' => 'id']);
     }
 
     public function getTypes()
