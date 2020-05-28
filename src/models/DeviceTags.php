@@ -30,6 +30,15 @@ class DeviceTags extends ActiveRecord
             'tag_id' => Module::t('Tag ID'),
         ];
     }
+    public function getDevice()
+    {
+        return $this->hasOne(Device::className(), ['id' => 'device_id']);
+    }
+
+    public function getTags()
+    {
+        return $this->hasOne(Tag::className(), ['id' => 'tag_id']);
+    }
 
     public static function find()
     {

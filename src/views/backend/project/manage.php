@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use portalium\device\Module;
 use portalium\theme\widgets\Tabs;
 /* @var $this yii\web\View */
-/* @var $model portalium\device\models\Type */
+/* @var $model portalium\device\models\Project */
 
 
 $this->params['breadcrumbs'][] = ['label' => Module::t('Project'), 'url' => ['index']];

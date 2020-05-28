@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use portalium\device\Module;
+use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $searchModel portalium\device\models\AppSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -31,7 +32,33 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'header' => 'Actions',
+                'headerOptions' => ['style' => 'color:#337ab7'],
+                'template' => '{view}{update}{delete}',
+                'buttons' => [
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', Url::toRoute(['app/view','id' => $model->id]), [
+                            'title' => Module::t('app-view'),
+                        ]);
+                    },
+
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', Url::toRoute(['app/manage','id' => $model->id]), [
+                            'title' => Module::t('app-update'),
+                        ]);
+                    },
+                    'delete' => function($url, $model){
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->id], [
+                            'class' => '',
+                            'data' => [
+                                'confirm' => 'Are you absolutely sure ? You will lose all the information about this user with this action.',
+                                'method' => 'post',
+                            ],
+                        ]); }
+                ],
+            ],
         ],
     ]); ?>
 

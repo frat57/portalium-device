@@ -18,10 +18,9 @@ class Device extends ActiveRecord
     public function behaviors()
     {
         return [
-            // for different configurations, please see the code
-            // we have created tables and relationship in order to
-            // use defaults settings
+            [
             'class' => Taggable::className(),
+            ],
         ];
     }
 
@@ -29,7 +28,7 @@ class Device extends ActiveRecord
     {
         return [
             [['name', 'api'], 'required'],
-            [['tag_name'], 'safe'],
+            [['tagNames'], 'safe'],
             [['description'], 'string'],
             [['type_id'], 'integer'],
             [['name', 'api'], 'string', 'max' => 64],
@@ -45,6 +44,7 @@ class Device extends ActiveRecord
             'api' => Module::t('Api'),
             'description' => Module::t('Description'),
             'type' => Module::t('type'),
+            'tagNames' => Module::t('Tag'),
         ];
     }
 
@@ -82,4 +82,5 @@ class Device extends ActiveRecord
     {
         return new DeviceQuery(get_called_class());
     }
+
 }

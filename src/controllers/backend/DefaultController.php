@@ -53,20 +53,20 @@ class DefaultController extends Controller
         if ($properties->load(Yii::$app->request->post()) && $properties->save()) {
             return $this->redirect(['default/manage', 'id' => $id]);
         }
-        return $this->render('properties', [
-            'properties' => $properties,
-        ]);
 
     }
     //Variable için create type controller
     public function actionVariable($id){
         $variable = new Variable();
         $variable->device_id = $id;
+        $variableQuery = Tag::find()->where(['device_id' => $id]);
+        $variableProvider = new ActiveDataProvider(['query' => $variableQuery]);
         if ($variable->load(Yii::$app->request->post()) && $variable->save()) {
             return $this->redirect(['default/manage', 'id' => $id]);
         }
         return $this->render('variable', [
             'variable' => $variable,
+            'variableProvider' => $variableProvider
         ]);
 
     }
@@ -97,6 +97,9 @@ class DefaultController extends Controller
     }
     public function actionManage($id){
         $model = $this->findModel($id);
+        $type = new Type();
+        $typeQuery = Type::find();
+        $typeProvider = new ActiveDataProvider(['query' => $typeQuery]);
         $variable = new Variable();
         $variableQuery = Variable::find()->where(['device_id' => $id]);
         $variableProvider = new ActiveDataProvider(['query' => $variableQuery ,
@@ -106,9 +109,7 @@ class DefaultController extends Controller
             ]);
         $properties = new Properties();
         $propertiesQuery = Properties::find()->where(['device_id' => $id]);
-        $propertiesProvider = new ActiveDataProvider(['query' => $propertiesQuery,
-            'pagination' => false,
-        ]);
+        $propertiesProvider = new ActiveDataProvider(['query' => $propertiesQuery]);
         $tag = new Tag();
         $tagQuery = Tag::find()->where(['device_id' => $id]);
         $tagProvider = new ActiveDataProvider(['query' => $tagQuery]);
@@ -123,16 +124,21 @@ class DefaultController extends Controller
             'properties' => $properties,
             'propertiesProvider' => $propertiesProvider,
             'tag' => $tag,
-            'tagProvider' => $tagProvider
+            'tagProvider' => $tagProvider,
+            'type' => $type,
+            'typeProvider' => $typeProvider,
         ]);
     }
 
-    public function actionTypeUpdate($id)
+    public function actionTypeupdate($id)
     {
-        $type = $this->findModel($id);
+        $model = $this->findModel($id);
+        $type = new Type();
+        $typeQuery = Type::find()->where(['device_id' => $id]);
+        $typeProvider = new ActiveDataProvider(['query' => $typeQuery]);
 
-        if ($type->load(Yii::$app->request->post()) && $type->save()) {
-            return $this->redirect(['default/manage', 'id' => $type->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['default/manage', 'id' => $model->id]);
         }
 
     }
@@ -164,6 +170,9 @@ class DefaultController extends Controller
         }
         if (($variable = Variable::findOne($id)) !== null) {
             return $variable;
+        }
+        if (($type = Type::findOne($id)) !== null) {
+            return $type;
         }
 
 

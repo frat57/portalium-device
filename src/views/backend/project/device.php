@@ -14,7 +14,7 @@ use portalium\theme\widgets\GridView;
 
 <div class="type-form">
 
-    <?php $form = ActiveForm::begin(['action' => Url::toRoute(['project/create','id' => $device])]); ?>
+    <?php $form = ActiveForm::begin(['action' => Url::toRoute(['device/create','id' => $device])]); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 

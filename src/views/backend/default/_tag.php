@@ -11,12 +11,12 @@ use dosamigos\selectize\SelectizeTextInput;
 /* @var $tag portalium\device\models\Tag */
 ?>
 
-<div class="tag-form">
+<div class="device-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
 
-    <?= $form->field($tag, 'name')->widget(SelectizeTextInput::className(), [
+    <?= $form->field($model, 'tagNames')->widget(SelectizeTextInput::className(), [
         // calls an action that returns a JSON object with matched
         // tags
         'loadUrl' => ['tag/list'],
@@ -28,7 +28,7 @@ use dosamigos\selectize\SelectizeTextInput;
             'searchField' => ['name'],
             'create' => true,
         ],
-    ])->hint('Tagleri ekleyiniz') ?>
+    ])->hint('Use commas to separate tags') ?>
 
 
     <?php ActiveForm::end(); ?>

@@ -20,10 +20,9 @@ use yii\helpers\HtmlPurifier;
                         <h3><?= Html::encode($model->name); ?></p></h3>
                         <?= Html::encode($model->description); ?>
                        <?= Html::a('<span class="glyphicon glyphicon-pencil"></span>',
-                           ['default/variable','id' => $model->id], [
-                        ]);
+                           ['default/variable','id' => $model->id]);
                        ?>
-                        <?= Html::a('<span class="glyphicon glyphicon-trash"></span>', ['variable/delete', 'id' => $model->id], [
+                        <?= Html::a('<a class="glyphicon glyphicon-trash"></a>', ['variable/delete', 'id' => $model->id], [
                             'class' => '',
                             'data' => [
                                 'confirm' => 'Are you absolutely sure ? You will lose all the information about this user with this action.',

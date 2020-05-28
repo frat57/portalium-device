@@ -13,12 +13,11 @@ use portalium\device\models;
 
 <div class="type-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin();?>
 
         <?= $form->field($variable, 'name')->textInput(['maxlength' => true]) ?>
         <?= $form->field($variable, 'description')->textarea(['rows' => 1]) ?>
         <?= $form->field($variable, 'api')->textInput(['maxlength' => true]) ?>
-        <?= $form->field($variable, 'id')->textInput(['input' =>$variable->id])?>
         <?= $form->field($variable, 'range')->textInput(['maxlength' => true]) ?>
         <?= $form->field($variable, 'unit')->textInput(['maxlength' => true]) ?>
     <div class="form-group">

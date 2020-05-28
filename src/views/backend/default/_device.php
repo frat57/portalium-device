@@ -34,10 +34,25 @@ use yii\bootstrap\modal;
                     'header' => '<h2>Select Type</h2>',
                     'toggleButton' => ['class' =>  'btn btn-primary','label'=>'Select Type']
                 ]); ?>
+                <?=
+                ListView::widget([
+                    'dataProvider' => $typeProvider,
+                    'options' => [
+                        'tag' => 'div',
+                        'class' => 'list-wrapper',
+                        'id' => 'list-wrapper',
+                    ],
+                    'summary'=> false,
+                    'itemView' => function ($type, $key, $index, $widget) {
+                        return $this->render('_list_type', ['model' => $type]);
+                    },
 
+                ]);
+                ?>
                 <?php Modal::end(); ?>
 
                 <?= $this->render('_tag', [
+                    'model' => $model,
                     'tag' => $tag,
                     'tagProvider' => $tagProvider,
                     'device' => $model->id
@@ -80,13 +95,13 @@ use yii\bootstrap\modal;
         <?php ActiveForm::end(); ?>
     </div>
 
-    <div class="properties-form">
+    <div class="type-form">
         <p>
             <?php Modal::begin([
                 'header' => '<h2>Create Properties</h2>',
                 'toggleButton' => ['class' =>  'btn btn-success','label'=>'Add Properties']
             ]); ?>
-            <?php $form = ActiveForm::begin(); ?>
+            <?php $form = ActiveForm::begin(['action' => Url::toRoute(['default/properties','id' => $model->id])]); ?>
 
             <?= $form->field($properties, 'name')->textInput(['maxlength' => true]) ?>
 

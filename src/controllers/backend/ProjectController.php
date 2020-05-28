@@ -83,7 +83,7 @@ class ProjectController extends Controller
     public function actionManage($id){
         $model = $this->findModel($id);
         $device = new Device();
-        $deviceQuery = Device::find()->where(['id' => $id]);
+        $deviceQuery = Device::find()->where(['project_id' => $id]);
         $deviceProvider = new ActiveDataProvider(['query' => $deviceQuery]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -96,6 +96,7 @@ class ProjectController extends Controller
             'deviceProvider' => $deviceProvider,
         ]);
     }
+
 
     protected function findModel($id)
     {

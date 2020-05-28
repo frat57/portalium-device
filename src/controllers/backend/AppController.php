@@ -3,6 +3,8 @@
 namespace portalium\device\controllers\backend;
 
 use portalium\device\models\Project;
+use portalium\device\models\ProjectAppRelation;
+use portalium\device\models\Variable;
 use Yii;
 use portalium\device\models\App;
 use portalium\device\models\AppSearch;
@@ -74,7 +76,7 @@ class AppController extends Controller
     public function actionManage($id){
         $model = $this->findModel($id);
         $project = new Project();
-        $projectQuery = Project::find();
+        $projectQuery = Project::find()->viaTable('app_projects', ['app_id' => 'id']);
         $projectProvider = new ActiveDataProvider(['query' => $projectQuery,
             'pagination' => [
             'pageSize' => 10,
@@ -87,7 +89,7 @@ class AppController extends Controller
         return $this->render('manage',[
             'model' => $model,
             'project' => $project,
-            'projectProvider' => $projectProvider
+            'projectProvider' => $projectProvider,
         ]);
     }
     public function actionDelete($id)
@@ -102,7 +104,9 @@ class AppController extends Controller
         if (($model = App::findOne($id)) !== null) {
             return $model;
         }
-
+        if (($project = Project::findOne($id)) !== null) {
+            return $project;
+        }
         throw new NotFoundHttpException(Module::t('The requested page does not exist.'));
     }
 }

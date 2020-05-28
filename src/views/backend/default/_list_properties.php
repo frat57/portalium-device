@@ -1,11 +1,9 @@
-<script>
-    $this => registerJs(
+    $this -> registerJs(
         $("document").ready(function(){
             $("#new_properties").on("pjax:end", function() {
                 $.pjax.reload({container:"#properties"});  //Reload GridView
             });
         });
-</script>
 <?php
 // _list_properties.php
 use yii\helpers\Html;

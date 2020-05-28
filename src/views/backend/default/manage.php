@@ -16,13 +16,15 @@ $this->params['breadcrumbs'][] = Module::t('Update');
 <div class="device-update"style="float: left;width: 25%">
 
     <h1><?= Html::encode($this->title) ?></h1>
-   <?= $this->render('update', [
+   <?= $this->render('_device', [
        'model' => $model,
        'tag' => $tag,
        'tagProvider' => $tagProvider,
        'properties' => $properties,
        'propertiesProvider' => $propertiesProvider,
-       'device' => $model->id
+       'device' => $model->id,
+       'type' => $type,
+       'typeProvider' => $typeProvider
        ])
    ?>
     </div>

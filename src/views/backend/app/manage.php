@@ -24,8 +24,9 @@ $this->params['breadcrumbs'][] = Module::t('Update');
             [  'label' => 'Project',
                 'content' => $this->render('project',
                     ['model' => $project,
-                        'provider'=>$projectProvider ,
-                        'app'=>$model->id]),
+                        'provider'=> $projectProvider ,
+                        'app'=> $model->id,
+                    ]),
             ]
         ]
     ]);

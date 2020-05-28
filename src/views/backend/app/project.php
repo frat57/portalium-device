@@ -1,5 +1,6 @@
 <?php
 
+use portalium\device\models\ProjectAppRelation;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
@@ -25,6 +26,7 @@ use portalium\theme\widgets\GridView;
 
     <?= $form->field($model, 'app_config')->textarea(['rows' => 1])?>
 
+
     <div class="form-group">
         <?= Html::submitButton(Module::t('Save'), ['type'],['class' => 'btn btn-success']) ?>
     </div>
@@ -39,6 +41,7 @@ use portalium\theme\widgets\GridView;
             'device_name',
             'conn_type',
             'app_config',
+
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => 'Actions',

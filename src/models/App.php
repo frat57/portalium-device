@@ -35,6 +35,10 @@ class App extends ActiveRecord
     {
         return $this->hasMany(AppProjects::className(), ['app_id' => 'id']);
     }
+    public function getProjects()
+    {
+        return $this->hasMany(Project::className(), ['id' => 'project_id'])->viaTable('app_projects', ['app_id' => 'id']);
+    }
 
     public static function find()
     {
