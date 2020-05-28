@@ -132,13 +132,11 @@ class DefaultController extends Controller
 
     public function actionTypeupdate($id)
     {
-        $model = $this->findModel($id);
-        $type = new Type();
-        $typeQuery = Type::find()->where(['device_id' => $id]);
-        $typeProvider = new ActiveDataProvider(['query' => $typeQuery]);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['default/manage', 'id' => $model->id]);
+        $type = Type::findOne($id);
+        $type->device_id = $id;
+        $type->save();
+        if ($type->load(Yii::$app->request->post()) && $type->save()) {
+            return $this->redirect(['default/manage', 'id' => $type->id]);
         }
 
     }

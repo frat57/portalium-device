@@ -47,6 +47,7 @@ use yii\bootstrap\modal;
                         return $this->render('_list_type', ['model' => $type]);
                     },
 
+
                 ]);
                 ?>
                 <?php Modal::end(); ?>

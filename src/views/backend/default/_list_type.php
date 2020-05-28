@@ -12,7 +12,7 @@ use yii\widgets\Pjax;
 
 <div class="type-form">
     <?php $form = ActiveForm::begin(); ?>
-    <h3><div class="form-group">  <?= Html::submitButton(Module::t('Save') ,['default/typeupdate','id' => $model->id], ['class' => 'btn btn-success']) ?>
+    <h3><div class="form-group">  <?= Html::a(Module::t('Update'), ['default/typeupdate','id' => $model->id],['class' => 'btn btn-primary']) ?>
 
      <?= Html::encode($model->name); ?></div></h3>
     <?php ActiveForm::end(); ?>

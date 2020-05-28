@@ -11,12 +11,43 @@ class m010101_010101_device extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
+        $this->createTable('app', [
+            'id' => $this->primaryKey(),
+            'name' => $this->string(20)->notNull(),
+        ], $tableOptions);
+
+        $tableOptions = null;
+        if ($this->db->driverName === 'mysql') {
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+        }
+
+        $this->createTable('app_projects', [
+            'project_id' => $this->integer(11),
+            'app_id' => $this->integer(11),
+        ], $tableOptions);
+
+        $tableOptions = null;
+        if ($this->db->driverName === 'mysql') {
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+        }
+
+        $this->createTable('device_tags', [
+            'device_id' => $this->integer(11),
+            'tag_id' => $this->integer(11),
+        ], $tableOptions);
+
+        $tableOptions = null;
+        if ($this->db->driverName === 'mysql') {
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+        }
+
         $this->createTable('device', [
             'id' => $this->primaryKey(),
             'name' => $this->string(64)->notNull(),
             'api' => $this->string(64)->notNull(),
             'description' => $this->text(),
             'type_id' => $this->integer(11),
+            'project_id' => $this->integer(11),
         ], $tableOptions);
 
         $tableOptions = null;
@@ -26,9 +57,10 @@ class m010101_010101_device extends Migration
 
         $this->createTable('project', [
             'id' => $this->primaryKey(),
-            'projectName' => $this->string(64)->notNull(),
-            'device_id' => $this->integer(11),
-            'connType' => $this->tinyInteger(3),
+            'name' => $this->string(20)->notNull(),
+            'device_name' => $this->integer(11),
+            'conn_type' => $this->string(20),
+            'app_config' => $this->text(),
         ], $tableOptions);
 
         $tableoptions = null;
@@ -65,6 +97,7 @@ class m010101_010101_device extends Migration
         $this->createTable('tag', [
             'device_id' => $this->integer(11),
             'name' => $this->string(20)->notNull(),
+            'frequency' => $this->string(20),
         ], $tableOptions);
 
         $tableoptions = null;
@@ -91,8 +124,57 @@ class m010101_010101_device extends Migration
             'range' => $this->integer(11),
             'unit' => $this->text(),
             'device_id' => $this->integer(11)->null()->defaultValue(0),
+            'type_id' => $this->integer(11)->null()->defaultValue(0),
         ], $tableOptions);
 
+        $this->createIndex(
+            'idx-device_tags-tag_id',
+            'device_tags',
+            'tag_id'
+        );
+        $this->addForeignKey(
+            'fk-device_tags-device_id',
+            'device_tags',
+            'tag_id',
+            'tag',
+            'id'
+        );
+        $this->createIndex(
+            'idx-device_tags-device_id',
+            'device_tags',
+            'device_id'
+        );
+        $this->addForeignKey(
+            'fk-device_tags-device_id',
+            'device_tags',
+            'device_id',
+            'device',
+            'id'
+        );
+        $this->createIndex(
+            'idx-app_projects-project_id',
+            'app_projects',
+            'project_id'
+        );
+        $this->addForeignKey(
+            'fk-app_projects-project_id',
+            'app_projects',
+            'project_id',
+            'project',
+            'id'
+        );
+        $this->createIndex(
+            'idx-app_projects-app_id',
+            'app_projects',
+            'app_id'
+        );
+        $this->addForeignKey(
+            'fk-app_projects-app_id',
+            'app_projects',
+            'app_id',
+            'app',
+            'id'
+        );
         $this->createIndex(
             'idx-data-device_id',
             'data',
@@ -205,15 +287,17 @@ class m010101_010101_device extends Migration
     }
     public function down()
     {
-        $this->dropIndex('fk-data-device_id');
-        $this->dropIndex('fk-project-device_id');
-        $this->dropIndex('fk-device-type_id');
-        $this->dropIndex('fk-properties-device_id');
-        $this->dropIndex('fk-properties-type_id');
-        $this->dropIndex('fk-tag-device_id');
-        $this->dropIndex('fk-type-device_id');
-        $this->dropIndex('fk-variable-device_id');
-        $this->dropIndex('fk-variable-type_id');
+        $this->dropIndex('idx-data-device_id');
+        $this->dropIndex('idx-project-device_id');
+        $this->dropIndex('idx-device-type_id');
+        $this->dropIndex('idx-properties-device_id');
+        $this->dropIndex('idx-properties-type_id');
+        $this->dropIndex('idx-tag-device_id');
+        $this->dropIndex('idx-type-device_id');
+        $this->dropIndex('idx-variable-device_id');
+        $this->dropIndex('idx-variable-type_id');
+        $this->dropIndex('idx-app_projects-project_id');
+        $this->dropIndex('idx-app_projects-app_id');
 
         $this->dropForeignKey('fk-data-device_id');
         $this->dropForeignKey('fk-project-device_id');
@@ -224,6 +308,8 @@ class m010101_010101_device extends Migration
         $this->dropForeignKey('fk-type-device_id');
         $this->dropForeignKey('fk-variable-device_id');
         $this->dropForeignKey('fk-variable-type_id');
+        $this->dropForeignKey('fk-app_projects-project_id');
+        $this->dropForeignKey('fk-app_projects-app_id');
 
         $this->dropTable('data');
         $this->dropTable('device');
@@ -231,6 +317,10 @@ class m010101_010101_device extends Migration
         $this->dropTable('type');
         $this->dropTable('properties');
         $this->dropTable('variable');
+        $this->dropTable('app');
+        $this->dropTable('project');
+        $this->dropTable('app_projects');
+        $this->dropTable('device_tags');
 
     }
 }
