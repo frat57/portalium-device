@@ -109,7 +109,6 @@ class m010101_010101_device extends Migration
             'name' => $this->string(20),
             'api' => $this->string(20),
             'description' => $this->text(),
-            'device_id' => $this->integer(11)->null()->defaultValue(0),
         ], $tableOptions);
 
         $tableoptions = null;
@@ -248,18 +247,6 @@ class m010101_010101_device extends Migration
             'id'
         );
         $this->createIndex(
-            'idx-type-device_id',
-            'type',
-            'device_id'
-        );
-        $this->addForeignKey(
-            'fk-type-device_id',
-            'type',
-            'device_id',
-            'device',
-            'id'
-        );
-        $this->createIndex(
             'idx-variable-device_id',
             'variable',
             'device_id'
@@ -293,7 +280,6 @@ class m010101_010101_device extends Migration
         $this->dropIndex('idx-properties-device_id');
         $this->dropIndex('idx-properties-type_id');
         $this->dropIndex('idx-tag-device_id');
-        $this->dropIndex('idx-type-device_id');
         $this->dropIndex('idx-variable-device_id');
         $this->dropIndex('idx-variable-type_id');
         $this->dropIndex('idx-app_projects-project_id');
@@ -305,7 +291,6 @@ class m010101_010101_device extends Migration
         $this->dropForeignKey('fk-properties-device_id');
         $this->dropForeignKey('fk-properties-type_id');
         $this->dropForeignKey('fk-tag-device_id');
-        $this->dropForeignKey('fk-type-device_id');
         $this->dropForeignKey('fk-variable-device_id');
         $this->dropForeignKey('fk-variable-type_id');
         $this->dropForeignKey('fk-app_projects-project_id');

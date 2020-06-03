@@ -15,8 +15,13 @@ use yii\bootstrap\modal;
 ?>
 
 <div class="device-form">
-
-    <?php $form = ActiveForm::begin();?>
+    <?php yii\widgets\Pjax::begin(['id' => 'update_device']) ?>
+   <?php $form = ActiveForm::begin([
+    'options' => [
+            'data' => ['pjax' => true],
+            'onkeypress' =>" if(event.keyCode == 13){ submit(); }"
+    ],
+    ]);?>
     <div style="float: left;">
         <div style="width: 500px;">
             <div class="col-md-6">
@@ -27,9 +32,7 @@ use yii\bootstrap\modal;
 
                 <?= $form->field($model, 'description')->textarea(['rows' => 4]) ?>
 
-                <div class="form-group">
-                    <?= Html::submitButton(Module::t('Save'), ['class' => 'btn btn-success']) ?>
-                </div>
+
                 <?php Modal::begin([
                     'header' => '<h2>Select Type</h2>',
                     'toggleButton' => ['class' =>  'btn btn-primary','label'=>'Select Type']
@@ -37,24 +40,20 @@ use yii\bootstrap\modal;
                 <?=
                 ListView::widget([
                     'dataProvider' => $typeProvider,
+                    'viewParams' => [ 'device' => $model->id ],
                     'options' => [
                         'tag' => 'div',
                         'class' => 'list-wrapper',
                         'id' => 'list-wrapper',
                     ],
                     'summary'=> false,
-                    'itemView' => function ($type, $key, $index, $widget) {
-                        return $this->render('_list_type', ['model' => $type]);
-                    },
-
-
+                    'itemView' => '_list_type',
                 ]);
                 ?>
                 <?php Modal::end(); ?>
 
                 <?= $this->render('_tag', [
                     'model' => $model,
-                    'tag' => $tag,
                     'tagProvider' => $tagProvider,
                     'device' => $model->id
                 ])
@@ -74,12 +73,12 @@ use yii\bootstrap\modal;
                             'template' => '{update}{delete}',
                             'buttons' => [
                                 'update' => function ($url, $model) {
-                                    return Html::a('<span class="glyphicon glyphicon-pencil"></span>', Url::toRoute(['properties','id' => $model->id]) ,[
-                                        'title' => Module::t('View'),
-                                            ]);
+                                    return Html::a('<span class="glyphicon glyphicon-pencil"></span>', Url::toRoute(['propertiesupdate','id' => $model->id]) ,[
+                                        'title' => Module::t('properties-update'),
+                                        ]);
                                 },
                                 'delete' => function($url, $model){
-                                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->id], [
+                                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['propertiesdelete', 'id' => $model->id], [
                                         'class' => '',
                                         'data' => [
                                             'confirm' => 'Are you absolutely sure ? You will lose all the information about this user with this action.',
@@ -94,6 +93,7 @@ use yii\bootstrap\modal;
             </div>
         </div>
         <?php ActiveForm::end(); ?>
+        <?php yii\widgets\Pjax::end() ?>
     </div>
 
     <div class="type-form">

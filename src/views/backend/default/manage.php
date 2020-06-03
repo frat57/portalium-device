@@ -18,13 +18,11 @@ $this->params['breadcrumbs'][] = Module::t('Update');
     <h1><?= Html::encode($this->title) ?></h1>
    <?= $this->render('_device', [
        'model' => $model,
-       'tag' => $tag,
        'tagProvider' => $tagProvider,
        'properties' => $properties,
-       'propertiesProvider' => $propertiesProvider,
        'device' => $model->id,
-       'type' => $type,
-       'typeProvider' => $typeProvider
+       'typeProvider' => $typeProvider,
+       'propertiesProvider' => $propertiesProvider,
        ])
    ?>
     </div>

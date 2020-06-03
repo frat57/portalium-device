@@ -23,6 +23,7 @@ class PropertiesController extends Controller
             return $this->redirect(['type/manage', 'id' => $id , '#' =>'w3-tab1']);
         }
     }
+
     protected function findModel($id)
     {
         if (($model = Properties::findOne($id)) !== null) {

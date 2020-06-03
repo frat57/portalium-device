@@ -16,11 +16,9 @@ use yii\widgets\Pjax;
 /* @var $properties portalium\device\models\Properties */
 ?>
 
-
-
 <div class="properties-form">
-    <?php Pjax::begin(['id' => 'new_properties', 'timeout' => false]); ?>
-    <?php $form = ActiveForm::begin(['options' => ['data-pjax' => true ]]); ?>
+
+    <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($properties, 'name')->textInput(['maxlength' => true]) ?>
     <?= $form->field($properties, 'value')->textarea(['rows' => 1]) ?>

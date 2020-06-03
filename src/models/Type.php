@@ -18,10 +18,8 @@ class Type extends ActiveRecord
     {
         return [
             [['name', 'api'], 'required'],
-            [['device_id'], 'integer'],
             [['description'], 'string'],
             [['name','api'], 'string', 'max' => 20],
-            [['device_id'], 'exist', 'skipOnError' => true, 'targetClass' => Device::className(), 'targetAttribute' => ['device_id' => 'id']],
         ];
     }
 
@@ -32,13 +30,7 @@ class Type extends ActiveRecord
             'name' => Module::t('Name'),
             'api' => Module::t('Api'),
             'description' => Module::t('Description'),
-            'device_id' => Module::t('Device ID'),
         ];
-    }
-
-    public function getDevice()
-    {
-        return $this->hasOne(Device::className(), ['id' => 'device_id']);
     }
 
     public function getProperties()

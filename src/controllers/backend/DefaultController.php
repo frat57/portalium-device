@@ -46,23 +46,42 @@ class DefaultController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
-    //Properties için create type controller
+    //Properties için create  controller
     public function actionProperties($id){
         $properties = new Properties();
         $properties->device_id = $id;
         if ($properties->load(Yii::$app->request->post()) && $properties->save()) {
-            return $this->redirect(['default/manage', 'id' => $id]);
+            return $this->redirect(['default/manage', 'id' => $properties->id]);
         }
 
+    }
+    //Properties için update controller
+    public function actionPropertiesupdate($id){
+        $model = Properties::findOne($id);
+        //Hangi device olduğuna dönmek için
+        $device = $model->device_id;
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['default/manage', 'id' => $device]);
+        }
+        return $this->render('_properties', [
+            'model' => $model,
+        ]);
+
+    }
+    public function actionPropertiesdelete($id)
+    {
+        Properties::findOne($id)->delete();
+
+        return $this->redirect(['manage']);
     }
     //Variable için create type controller
     public function actionVariable($id){
         $variable = new Variable();
         $variable->device_id = $id;
-        $variableQuery = Tag::find()->where(['device_id' => $id]);
+        $variableQuery = Variable::find()->where(['device_id' => $id]);
         $variableProvider = new ActiveDataProvider(['query' => $variableQuery]);
         if ($variable->load(Yii::$app->request->post()) && $variable->save()) {
-            return $this->redirect(['default/manage', 'id' => $id]);
+            return $this->redirect(['default/manage', 'id' => $variable->id]);
         }
         return $this->render('variable', [
             'variable' => $variable,
@@ -97,10 +116,9 @@ class DefaultController extends Controller
     }
     public function actionManage($id){
         $model = $this->findModel($id);
-        $type = new Type();
         $typeQuery = Type::find();
         $typeProvider = new ActiveDataProvider(['query' => $typeQuery]);
-        $variable = new Variable();
+
         $variableQuery = Variable::find()->where(['device_id' => $id]);
         $variableProvider = new ActiveDataProvider(['query' => $variableQuery ,
             'pagination' => [
@@ -110,7 +128,7 @@ class DefaultController extends Controller
         $properties = new Properties();
         $propertiesQuery = Properties::find()->where(['device_id' => $id]);
         $propertiesProvider = new ActiveDataProvider(['query' => $propertiesQuery]);
-        $tag = new Tag();
+
         $tagQuery = Tag::find()->where(['device_id' => $id]);
         $tagProvider = new ActiveDataProvider(['query' => $tagQuery]);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -119,24 +137,34 @@ class DefaultController extends Controller
 
         return $this->render('manage',[
             'model' => $model,
-            'variable' => $variable,
             'variableProvider' => $variableProvider,
             'properties' => $properties,
             'propertiesProvider' => $propertiesProvider,
-            'tag' => $tag,
             'tagProvider' => $tagProvider,
-            'type' => $type,
             'typeProvider' => $typeProvider,
         ]);
     }
 
-    public function actionTypeupdate($id)
+    public function actionTypeupdate($id,$d_id)
     {
-        $type = Type::findOne($id);
-        $type->device_id = $id;
-        $type->save();
-        if ($type->load(Yii::$app->request->post()) && $type->save()) {
-            return $this->redirect(['default/manage', 'id' => $type->id]);
+        $model = Device::findOne($id);
+        $model->type_id = $id;
+        $model->save();
+        //code goes here
+        //variable tablosundan ilgili type_id ile ilişkili kayıtlar çekilir.
+        $variable = Variable::find()->where(['type_id'=> $id]);
+        foreach ($variable as $variable) {
+            $newvariable = new Variable();
+            $newvariable = $variable;
+            $newvariable->type_id = 0;
+            $newvariable->device_id = $d_id;
+            $newvariable->save();
+        }
+        //Çekilen kayıtların kopyaları bu sefer type_id = 0 yapılıp
+        // device_id leri ilgili device_id olucak şekilde yeni kayıt olarak eklenir.
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['default/manage', 'id' => $d_id]);
         }
 
     }

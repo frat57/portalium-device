@@ -12,7 +12,7 @@ class TypeSearch extends Type
     public function rules()
     {
         return [
-            [['id', 'device_id'], 'integer'],
+            [['id'], 'integer'],
             [['name', 'api', 'description'], 'safe'],
         ];
     }
@@ -43,7 +43,6 @@ class TypeSearch extends Type
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'device_id' => $this->device_id,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])

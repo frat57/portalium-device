@@ -76,12 +76,7 @@ class AppController extends Controller
     public function actionManage($id){
         $model = $this->findModel($id);
         $project = new Project();
-        $projectQuery = Project::find()->viaTable('app_projects', ['app_id' => 'id']);
-        $projectProvider = new ActiveDataProvider(['query' => $projectQuery,
-            'pagination' => [
-            'pageSize' => 10,
-        ],
-        ]);
+        $projectProvider = new ActiveDataProvider(['query' => $model->getProjects()]);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['manage', 'id' => $model->id]);
         }
