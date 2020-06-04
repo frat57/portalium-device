@@ -33,7 +33,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'api',
             'description:ntext',
-            'device_id',
 
             [
                 'class' => 'yii\grid\ActionColumn',

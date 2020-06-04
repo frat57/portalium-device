@@ -30,7 +30,8 @@ class Device extends ActiveRecord
             [['name', 'api'], 'required'],
             [['tagNames'], 'safe'],
             [['description'], 'string'],
-            [['type_id'], 'integer'],
+            [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => Type::className(), 'targetAttribute' => ['type_id' => 'id']],
+            [['project_id'], 'exist', 'skipOnError' => true, 'targetClass' => Type::className(), 'targetAttribute' => ['project_id' => 'id']],
             [['name', 'api'], 'string', 'max' => 64],
         ];
     }
@@ -43,7 +44,7 @@ class Device extends ActiveRecord
             'name' => Module::t('Name'),
             'api' => Module::t('Api'),
             'description' => Module::t('Description'),
-            'type' => Module::t('type'),
+            'type' => Module::t('Type'),
             'tagNames' => Module::t('Tag'),
         ];
     }
@@ -76,7 +77,6 @@ class Device extends ActiveRecord
     {
         return $this->hasMany(Variable::className(), ['device_id' => 'id']);
     }
-
 
     public static function find()
     {

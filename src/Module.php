@@ -9,6 +9,11 @@ class Module extends \portalium\base\Module
             'class' => 'yii\rest\UrlRule',
             'controller' => [
                 'device/devices',
+                'device/project',
+                'device/properties',
+                'device/data',
+                'device/variable',
+                'device/appprojects',
             ]
         ],
     ];
