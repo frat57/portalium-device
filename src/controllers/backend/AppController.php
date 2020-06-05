@@ -12,7 +12,7 @@ use portalium\web\Controller;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\helpers\ArrayHelper;
 
 class AppController extends Controller
 {
@@ -50,9 +50,12 @@ class AppController extends Controller
     public function actionCreate()
     {
         $model = new App();
+        Yii::$app->user->getId();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->user_id = Yii::$app->user->getId();
+            if($model->save())
+                return $this->redirect(['manage', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -64,7 +67,9 @@ class AppController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->user_id = Yii::$app->user->getId();
+            if($model->save())
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -72,12 +77,28 @@ class AppController extends Controller
             'model' => $model,
         ]);
     }
+    public function actionUpdateproject($id,$project)
+    {
+        $model = $this->findModel($id);
+        $project_app = new ProjectAppRelation();
+        $project_app->app_id = $model->id;
+        $project_app->project_id = $project;
+        $project_app->user_id = Yii::$app->user->getId();
+        $project_app->save();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['manage', 'id' => $model->id]);
+        }
+    }
 
     public function actionManage($id){
         $model = $this->findModel($id);
+        $items = ArrayHelper::map(Project::find()->all(), 'id', 'name');
         $project = new Project();
         $projectProvider = new ActiveDataProvider(['query' => $model->getProjects()]);
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->user_id = Yii::$app->user->getId();
+            if($model->save())
             return $this->redirect(['manage', 'id' => $model->id]);
         }
 
@@ -85,6 +106,7 @@ class AppController extends Controller
             'model' => $model,
             'project' => $project,
             'projectProvider' => $projectProvider,
+            'items' => $items
         ]);
     }
     public function actionDelete($id)

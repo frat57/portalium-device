@@ -2,23 +2,23 @@
 
 namespace portalium\device\controllers\api;
 
-use portalium\device\models\Variable;
+use portalium\device\models\Data;
 use portalium\rest\ActiveController as RestActiveController;
 use yii\data\ActiveDataProvider;
 
-class VariableController extends RestActiveController
+class DatasController extends RestActiveController
 {
-    public $modelClass = 'portalium\device\models\Variable';
+    public $modelClass = 'portalium\device\models\Data';
 
     public function actions(){
         $actions = parent::actions();
-        unset($actions['index']);
+        unset($actions['index'],$actions['create'],$actions['update'],$actions['delete']);
 
         return $actions;
     }
     public function actionIndex(){
         $activeData = new ActiveDataProvider([
-            'query' => Variable::find()->select('device_id')
+            'query' => Data::find()->select('variable_id')
         ]);
         return $activeData;
     }

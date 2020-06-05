@@ -12,7 +12,7 @@ class PropertiesController extends RestActiveController
 
     public function actions(){
         $actions = parent::actions();
-        unset($actions['index']);
+        unset($actions['index'],$actions['create'],$actions['update'],$actions['delete']);
 
         return $actions;
     }

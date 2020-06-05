@@ -26,6 +26,7 @@ $this->params['breadcrumbs'][] = Module::t('Update');
                     ['model' => $project,
                         'provider'=> $projectProvider ,
                         'app'=> $model->id,
+                        'items' => $items
                     ]),
             ]
         ]

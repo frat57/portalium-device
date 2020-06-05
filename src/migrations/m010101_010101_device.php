@@ -14,6 +14,7 @@ class m010101_010101_device extends Migration
         $this->createTable('app', [
             'id' => $this->primaryKey(),
             'name' => $this->string(20)->notNull(),
+            'user_id' => $this->integer(11)->notNull(),
         ], $tableOptions);
 
         $tableOptions = null;
@@ -24,6 +25,7 @@ class m010101_010101_device extends Migration
         $this->createTable('app_projects', [
             'project_id' => $this->integer(11),
             'app_id' => $this->integer(11),
+            'user_id' => $this->integer(11),
         ], $tableOptions);
 
         $tableOptions = null;
@@ -61,6 +63,7 @@ class m010101_010101_device extends Migration
             'device_name' => $this->integer(11),
             'conn_type' => $this->string(20),
             'app_config' => $this->text(),
+            'user_id' => $this->integer(11)->notNull()
         ], $tableOptions);
 
         $tableoptions = null;
@@ -72,6 +75,7 @@ class m010101_010101_device extends Migration
             'value' => $this->text(),
             'created_at' => $this->timestamp(),
             'type' => $this->tinyInteger(1),
+            'variable_id' => $this->integer(11)
         ], $tableOptions);
 
         $tableoptions = null;
@@ -126,6 +130,54 @@ class m010101_010101_device extends Migration
             'type_id' => $this->integer(11)->null()->defaultValue(0),
         ], $tableOptions);
 
+        $this->createIndex(
+            'idx-project-user_id',
+            'project',
+            'user_id'
+        );
+        $this->addForeignKey(
+            'fk-project-user_id',
+            'project',
+            'user_id',
+            'user',
+            'id'
+        );
+        $this->createIndex(
+            'idx-data-variable_id',
+            'data',
+            'variable_id'
+        );
+        $this->addForeignKey(
+            'fk-app_projects-user_id',
+            'data',
+            'variable_id',
+            'variable',
+            'id'
+        );
+        $this->createIndex(
+            'idx-app_projects-user_id',
+            'app_projects',
+            'user_id'
+        );
+        $this->addForeignKey(
+            'fk-app_projects-user_id',
+            'app_projects',
+            'user_id',
+            'user',
+            'id'
+        );
+        $this->createIndex(
+            'idx-app-user_id',
+            'app',
+            'user_id'
+        );
+        $this->addForeignKey(
+            'fk-app-user_id',
+            'app',
+            'user_id',
+            'user',
+            'id'
+        );
         $this->createIndex(
             'idx-device_tags-tag_id',
             'device_tags',
@@ -284,6 +336,10 @@ class m010101_010101_device extends Migration
         $this->dropIndex('idx-variable-type_id');
         $this->dropIndex('idx-app_projects-project_id');
         $this->dropIndex('idx-app_projects-app_id');
+        $this->dropIndex('idx-project-user_id');
+        $this->dropIndex('idx-data-variable_id');
+        $this->dropIndex('idx-app_projects-user_id');
+        $this->dropIndex('idx-app-user_id');
 
         $this->dropForeignKey('fk-data-device_id');
         $this->dropForeignKey('fk-project-device_id');
@@ -295,6 +351,10 @@ class m010101_010101_device extends Migration
         $this->dropForeignKey('fk-variable-type_id');
         $this->dropForeignKey('fk-app_projects-project_id');
         $this->dropForeignKey('fk-app_projects-app_id');
+        $this->dropForeignKey('fk-project-user_id');
+        $this->dropForeignKey('fk-data-variable_id');
+        $this->dropForeignKey('fk-app_projects-user_id');
+        $this->dropForeignKey('fk-app-user_id');
 
         $this->dropTable('data');
         $this->dropTable('device');

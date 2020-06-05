@@ -18,7 +18,7 @@ class Project extends ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['name','user_id'], 'required'],
             [['id'], 'integer'],
             [['app_config', 'conn_type'], 'string'],
             [['name', 'device_name'], 'string', 'max' => 20],

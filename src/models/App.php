@@ -17,7 +17,7 @@ class App extends ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['name','user_id'], 'required'],
             [['id'], 'integer'],
             [['name'], 'string', 'max' => 20],
         ];

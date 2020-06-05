@@ -50,9 +50,12 @@ class ProjectController extends Controller
     public function actionCreate()
     {
         $model = new Project();
+        Yii::$app->user->getId();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->user_id = Yii::$app->user->getId();
+            if($model->save())
+            return $this->redirect(['manage', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -65,7 +68,9 @@ class ProjectController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->user_id = Yii::$app->user->getId();
+            if($model->save())
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -86,7 +91,9 @@ class ProjectController extends Controller
         $deviceQuery = Device::find()->where(['project_id' => $id]);
         $deviceProvider = new ActiveDataProvider(['query' => $deviceQuery]);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->user_id = Yii::$app->user->getId();
+            if($model->save())
             return $this->redirect(['manage', 'id' => $model->id]);
         }
 
