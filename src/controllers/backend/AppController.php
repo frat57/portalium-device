@@ -77,7 +77,7 @@ class AppController extends Controller
             'model' => $model,
         ]);
     }
-    public function actionUpdateproject($id,$project)
+    public function actionUpdateproject($id,$p_id)
     {
         $model = $this->findModel($id);
         $project_app = new ProjectAppRelation();
@@ -86,8 +86,8 @@ class AppController extends Controller
         $project_app->user_id = Yii::$app->user->getId();
         $project_app->save();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['manage', 'id' => $model->id]);
+        if ($project_app->load(Yii::$app->request->post()) && $project_app->save()) {
+            return $this->redirect(['manage', 'id' => $project_app->id]);
         }
     }
 

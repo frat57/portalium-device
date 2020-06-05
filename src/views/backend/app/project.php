@@ -15,13 +15,21 @@ use portalium\theme\widgets\GridView;
 
 <div class="project-form">
 
-    <?php $form = ActiveForm::begin(['action' => Url::toRoute(['app/updateproject','id' => $app,'project' => $model->id])]); ?>
+    <?php $form = ActiveForm::begin(['action' => Url::toRoute(['app/updateproject','id' => $app,'p_id' => $model->id])]); ?>
 
-    <?= $form->field($model, 'name')->dropDownList($items,['prompt'=>''] )->label('')?>
+    <?= $form->field($model, 'name')->dropDownList($items,['prompt'=>''], ['options' =>
+
+        [
+
+            $model->id => ['selected' => true]
+
+        ]
+
+    ] )->label('')?>
 
 
     <div class="form-group">
-        <?= Html::submitButton(Module::t('Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Module::t('Update'), ['app/updateproject','id' => $app,'p_id' => $model->id], ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
