@@ -2,6 +2,7 @@
 
 namespace portalium\device\controllers\backend;
 
+use portalium\device\models\Project;
 use portalium\device\models\Properties;
 use portalium\device\models\Variable;
 use Yii;
@@ -13,6 +14,7 @@ use portalium\web\Controller;
 use portalium\web\NotFoundHttpException;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 
 
 class DefaultController extends Controller
@@ -57,7 +59,7 @@ class DefaultController extends Controller
     }
     //Properties için update controller
     public function actionPropertiesupdate($id){
-        $model = Properties::findOne($id);
+        $model = $this->findPropertiesModel($id);
         //Hangi device olduğuna dönmek için
         $device = $model->device_id;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -194,6 +196,14 @@ class DefaultController extends Controller
     protected function findModel($id)
     {
         if (($model = Device::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException(Module::t('The requested page does not exist.'));
+    }
+    protected function findPropertiesModel($id)
+    {
+        if (($model = Properties::findOne($id)) !== null) {
             return $model;
         }
 

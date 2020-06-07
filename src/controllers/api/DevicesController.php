@@ -12,8 +12,17 @@ class DevicesController extends RestActiveController
     public function actions()
     {
         $actions = parent::actions();
-        unset($actions['create'],$actions['update'],$actions['delete']);
+        unset($actions['index'],$actions['create'],$actions['update'],$actions['delete']);
         return $actions;
     }
+    public function actionIndex($id){
 
+        if(Device::IsOwner($id) == true) {
+            $activeData = new ActiveDataProvider([
+                'query' => Device::find()->where('id ='.$id)
+            ]);
+            return $activeData;
+        }
+        return null;
+    }
 }

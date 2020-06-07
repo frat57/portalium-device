@@ -35,6 +35,7 @@ class ProjectsController extends ActiveController
         }
     }
     public function actionIndex(){
+
         $activeData = new ActiveDataProvider([
             'query' => Project::find()->select(['id','user_id'])
         ]);

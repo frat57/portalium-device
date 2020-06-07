@@ -9,8 +9,6 @@ use portalium\device\Module;
 
 class Data extends ActiveRecord
 {
-    const type_intfalse = 0;
-    const type_inttrue = 1;
 
     public static function tableName()
     {
@@ -20,13 +18,9 @@ class Data extends ActiveRecord
     public function rules()
     {
         return [
-            [['device_id', 'value', 'type'], 'required'],
-            [['device_id', 'type'], 'integer'],
+            [['value'], 'required'],
             [['value'], 'string'],
-            ['type', 'default', 'value'=> self::type_intfalse],
-            ['type', 'in' ,'range'=> self::getTypes()],
             [['created_at'], 'safe'],
-            [['device_id'], 'exist', 'skipOnError' => true, 'targetClass' => Device::className(), 'targetAttribute' => ['device_id' => 'id']],
             [['variable_id'], 'exist', 'skipOnError' => true, 'targetClass' => Variable::className(), 'targetAttribute' => ['variable_id' => 'id']],
         ];
     }
@@ -34,13 +28,33 @@ class Data extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'device_id' => Module::t('Device ID'),
             'value' => Module::t('Value'),
-            'type' => Module::t('Type'),
             'created_at' => Module::t('Created At'),
         ];
     }
 
+    public function IsOwner($id)
+    {
+        $user_id = Yii::$app->user->getId();
+
+        $rows = (new \yii\db\Query())
+            ->select(['d.variable_id','d.value'])
+            ->from('data d')
+            ->innerJoin("variable v",
+                'd.variable_id = v.id')
+            ->innerJoin('device de',
+                'v.device_id = de.id')
+            ->innerJoin('project p',
+                'de.project_id = p.id')
+            ->where('p.user_id = ' .$user_id )
+            ->where('v.id = ' .$id )
+            ->all();
+
+        if(count($rows) == 1) {
+            return true;
+        }
+        return false;
+    }
     public function getDevice()
     {
         return $this->hasOne(Device::className(), ['id' => 'device_id']);
@@ -50,7 +64,7 @@ class Data extends ActiveRecord
     {
         return new DataQuery(get_called_class());
     }
-    public static function getType()
+    public static function getTypes()
     {
         return ObjectHelper::getConstants('type_',__CLASS__);
     }

@@ -20,7 +20,7 @@ use portalium\theme\widgets\GridView;
     <?= $form->field($appprojects, 'project_id')->dropDownList($items,['prompt'=>''])->label('')?>
 
     <div class="form-group">
-        <?= Html::submitButton(Module::t('Update'), ['type'], ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Module::t('Add'), ['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

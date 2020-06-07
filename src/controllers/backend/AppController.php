@@ -92,7 +92,8 @@ class AppController extends Controller
 
     public function actionManage($id){
         $model = $this->findModel($id);
-        $items = ArrayHelper::map(Project::find()->all(), 'id', 'name');
+        $user_id = Yii::$app->user->getId();
+        $items = ArrayHelper::map(Project::find()->where('user_id = '.$user_id)->all(), 'id', 'name');
         $appprojects = new AppProject();
         $projectProvider = new ActiveDataProvider(['query' => $model->getProjects()]);
         if ($model->load(Yii::$app->request->post())) {
@@ -120,9 +121,7 @@ class AppController extends Controller
         if (($model = App::findOne($id)) !== null) {
             return $model;
         }
-        if (($project = Project::findOne($id)) !== null) {
-            return $project;
-        }
+
         throw new NotFoundHttpException(Module::t('The requested page does not exist.'));
     }
 }

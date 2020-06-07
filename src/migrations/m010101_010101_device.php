@@ -140,7 +140,8 @@ class m010101_010101_device extends Migration
             'project',
             'user_id',
             'user',
-            'id'
+            'id',
+            'CASCADE'
         );
         $this->createIndex(
             'idx-data-variable_id',
@@ -148,11 +149,12 @@ class m010101_010101_device extends Migration
             'variable_id'
         );
         $this->addForeignKey(
-            'fk-app_projects-user_id',
+            'fk-data-variable_id',
             'data',
             'variable_id',
             'variable',
-            'id'
+            'id',
+            'CASCADE'
         );
         $this->createIndex(
             'idx-app_projects-user_id',
@@ -184,11 +186,12 @@ class m010101_010101_device extends Migration
             'tag_id'
         );
         $this->addForeignKey(
-            'fk-device_tags-device_id',
+            'fk-device_tags-tag_id',
             'device_tags',
             'tag_id',
             'tag',
-            'id'
+            'id',
+            'CASCADE'
         );
         $this->createIndex(
             'idx-device_tags-device_id',
@@ -212,7 +215,8 @@ class m010101_010101_device extends Migration
             'app_projects',
             'project_id',
             'project',
-            'id'
+            'id',
+            'CASCADE'
         );
         $this->createIndex(
             'idx-app_projects-app_id',
@@ -224,7 +228,8 @@ class m010101_010101_device extends Migration
             'app_projects',
             'app_id',
             'app',
-            'id'
+            'id',
+            'CASCADE'
         );
         $this->createIndex(
             'idx-data-device_id',
@@ -248,7 +253,8 @@ class m010101_010101_device extends Migration
             'project',
             'device_id',
             'device',
-            'id'
+            'id',
+            'CASCADE'
         );
         $this->createIndex(
             'idx-device-type_id',
@@ -260,7 +266,8 @@ class m010101_010101_device extends Migration
             'device',
             'type_id',
             'type',
-            'id'
+            'id',
+            'CASCADE'
         );
         $this->createIndex(
             'idx-properties-device_id',
@@ -272,7 +279,8 @@ class m010101_010101_device extends Migration
             'properties',
             'device_id',
             'device',
-            'id'
+            'id',
+            'CASCADE'
         );
         $this->createIndex(
             'idx-properties-type_id',
@@ -308,7 +316,8 @@ class m010101_010101_device extends Migration
             'variable',
             'device_id',
             'device',
-            'id'
+            'id',
+
         );
         $this->createIndex(
             'idx-variable-type_id',
@@ -324,6 +333,7 @@ class m010101_010101_device extends Migration
         );
 
     }
+
     public function down()
     {
         $this->dropIndex('idx-data-device_id');

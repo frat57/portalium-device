@@ -31,6 +31,26 @@ class AppProject extends ActiveRecord
             'app_id' => Module::t('App ID'),
         ];
     }
+    public function IsOwner($id)
+    {
+        $user_id = Yii::$app->user->getId();
+
+        $rows = (new \yii\db\Query())
+            ->select(['a.id','a.user_id'])
+            ->from('app a')
+            ->innerJoin("app_projects ap",
+                'a.id = ap.app_id')
+            ->innerJoin('project p',
+                'ap.project_id = p.id')
+            ->where('ap.user_id = ' .$user_id )
+            ->where('a.id = ' .$id )
+            ->all();
+
+        if(count($rows) == 1) {
+            return true;
+        }
+        return false;
+    }
 
     public function getApp()
     {
@@ -44,6 +64,6 @@ class AppProject extends ActiveRecord
 
     public static function find()
     {
-        return new ProjectAppRelationQuery(get_called_class());
+        return new AppProjectsQuery(get_called_class());
     }
 }

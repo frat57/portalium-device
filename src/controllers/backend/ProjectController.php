@@ -110,9 +110,6 @@ class ProjectController extends Controller
         if (($model = Project::findOne($id)) !== null) {
             return $model;
         }
-        if (($device = Device::findOne($id)) !== null) {
-            return $device;
-        }
 
         throw new NotFoundHttpException(Module::t('The requested page does not exist.'));
     }

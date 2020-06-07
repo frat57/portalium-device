@@ -15,7 +15,7 @@ class AppsController extends RestActiveController
     public function actions()
     {
         $actions = parent::actions();
-        unset($actions['create'],$actions['index']);
+        unset($actions['create'],$actions['index'],$actions['update']);
         return $actions;
     }
     public function actionCreate()
@@ -33,10 +33,15 @@ class AppsController extends RestActiveController
             return $this->error(Module::t("Name required."));
         }
     }
-    public function actionIndex(){
-        $activeData = new ActiveDataProvider([
-            'query' => App::find()->select(['id','user_id'])
-        ]);
-        return $activeData;
+    public function actionIndex($id){
+
+        if(App::IsOwner($id) == true)
+        {
+            $activeData = new ActiveDataProvider([
+                'query' => App::find()->select(['id','user_id'])
+         ]);
+            return $activeData;
+        }
+        return 'Yetkisiz Erişim';
     }
 }
