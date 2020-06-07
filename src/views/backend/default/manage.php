@@ -44,4 +44,3 @@ $this->params['breadcrumbs'][] = Module::t('Update');
     ]);
     ?>
 </div>
-</div>

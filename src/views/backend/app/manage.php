@@ -23,8 +23,8 @@ $this->params['breadcrumbs'][] = Module::t('Update');
             ],
             [  'label' => 'Project',
                 'content' => $this->render('project',
-                    [   'model' => $project,
-                        'provider'=> $projectProvider ,
+                    [   'provider'=> $projectProvider ,
+                        'appprojects'=>$appprojects,
                         'app'=> $model->id,
                         'items' => $items
                     ]),

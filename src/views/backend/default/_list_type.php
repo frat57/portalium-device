@@ -11,9 +11,10 @@ use yii\widgets\Pjax;
 ?>
 
 <div class="type-form">
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['action' => Url::toRoute(['default/typeupdate','id' => $model->id,'d_id' => $device])]); ?>
     <h3><div class="form-group">
-   <?= Html::a(Module::t('Update'), ['default/typeupdate','id' => $model->id,'d_id' => $device],['class' => 'btn btn-primary']) ?>
+
+   <?= Html::submitButton(Module::t('Update'), ['class' => 'btn btn-primary']) ?>
 
      <?= Html::encode($model->name); ?></div></h3>
     <?php ActiveForm::end(); ?>

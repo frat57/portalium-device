@@ -7,31 +7,35 @@ use yii\widgets\Pjax;
 use yii\widgets\ListView;
 use yii\grid\GridView;
 use yii\helpers\Url;
-use yii\bootstrap\modal;
+use yii\bootstrap\Modal;
+
 /* @var $this yii\web\View */
 /* @var $model portalium\device\models\Device */
 /* @var $form yii\widgets\ActiveForm */
 /* @var $tag portalium\device\models\Tag */
 ?>
 
-<div class="device-form">
-    <?php yii\widgets\Pjax::begin(['id' => 'update_device']) ?>
-   <?php $form = ActiveForm::begin([
+<div style="float: left;">
+    <div style="width: 500px;">
+        <div class="col-md-6">
+            <div class="device-form">
+
+    <?php Pjax::begin(['id' => 'update_device']) ?>
+    <?php $form = ActiveForm::begin([
     'options' => [
             'data' => ['pjax' => true],
             'onkeypress' =>" if(event.keyCode == 13){ submit(); }"
     ],
     ]);?>
-    <div style="float: left;">
-        <div style="width: 500px;">
-            <div class="col-md-6">
+        <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-                <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'api')->textInput(['maxlength' => true]) ?>
 
-                <?= $form->field($model, 'api')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'description')->textarea(['rows' => 4]) ?>
 
-                <?= $form->field($model, 'description')->textarea(['rows' => 4]) ?>
-
+    <?php ActiveForm::end(); ?>
+    <?php Pjax::end() ?>
+            </div>
 
                 <?php Modal::begin([
                     'header' => '<h2>Select Type</h2>',
@@ -90,18 +94,12 @@ use yii\bootstrap\modal;
                     ],
                 ]); ?>
 
-            </div>
-        </div>
-        <?php ActiveForm::end(); ?>
-        <?php yii\widgets\Pjax::end() ?>
-    </div>
-
-    <div class="type-form">
-        <p>
             <?php Modal::begin([
+                    'id' => 1,
                 'header' => '<h2>Create Properties</h2>',
                 'toggleButton' => ['class' =>  'btn btn-success','label'=>'Add Properties']
             ]); ?>
+            <div class="type-form">
             <?php $form = ActiveForm::begin(['action' => Url::toRoute(['default/properties','id' => $model->id])]); ?>
 
             <?= $form->field($properties, 'name')->textInput(['maxlength' => true]) ?>
@@ -115,12 +113,9 @@ use yii\bootstrap\modal;
         <div class="form-group">
             <?= Html::submitButton(Module::t('Save'), ['create'],['class' => 'btn btn-success']) ?>
         </div>
-
-        <?php ActiveForm::end(); ?>
-
+                <?php ActiveForm::end(); ?>
+            </div>
         <?php Modal::end(); ?>
-        </p>
+        </div>
     </div>
-
 </div>
-

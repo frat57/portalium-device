@@ -147,23 +147,28 @@ class DefaultController extends Controller
 
     public function actionTypeupdate($id,$d_id)
     {
-        $model = Device::findOne($id);
+        $model = $this->findModel($d_id);
         $model->type_id = $id;
-        $model->save();
+
         //code goes here
         //variable tablosundan ilgili type_id ile ilişkili kayıtlar çekilir.
-        $variable = Variable::find()->where(['type_id'=> $id]);
-        foreach ($variable as $variable) {
+        $variables = Variable::find()->where(['type_id'=> $id])->asArray()->all();
+        foreach ($variables as $variable) {
             $newvariable = new Variable();
-            $newvariable = $variable;
+            $newvariable->name = $variable['name'];
+            $newvariable->api = $variable['api'];
+            $newvariable->description = $variable['description'];
+            $newvariable->range = $variable['range'];
+            $newvariable->unit = $variable['unit'];
             $newvariable->type_id = 0;
             $newvariable->device_id = $d_id;
+            if($newvariable->validate())
             $newvariable->save();
         }
         //Çekilen kayıtların kopyaları bu sefer type_id = 0 yapılıp
         // device_id leri ilgili device_id olucak şekilde yeni kayıt olarak eklenir.
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->save()) {
             return $this->redirect(['default/manage', 'id' => $d_id]);
         }
 
@@ -191,16 +196,6 @@ class DefaultController extends Controller
         if (($model = Device::findOne($id)) !== null) {
             return $model;
         }
-        if (($properties = Properties::findOne($id)) !== null) {
-            return $properties;
-        }
-        if (($variable = Variable::findOne($id)) !== null) {
-            return $variable;
-        }
-        if (($type = Type::findOne($id)) !== null) {
-            return $type;
-        }
-
 
         throw new NotFoundHttpException(Module::t('The requested page does not exist.'));
     }

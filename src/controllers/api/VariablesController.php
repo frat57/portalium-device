@@ -17,9 +17,10 @@ class VariablesController extends RestActiveController
 
         return $actions;
     }
-    public function actionIndex(){
+    public function actionIndex($device){
+
         $activeData = new ActiveDataProvider([
-            'query' => Variable::find()->select('device_id')
+            'query' => Variable::find()->where(['device_id' => $device])
         ]);
         return $activeData;
     }

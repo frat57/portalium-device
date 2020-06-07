@@ -21,7 +21,7 @@ class Project extends ActiveRecord
             [['name','user_id'], 'required'],
             [['id'], 'integer'],
             [['app_config', 'conn_type'], 'string'],
-            [['name', 'device_name'], 'string', 'max' => 20],
+            [['name'], 'string', 'max' => 20],
         ];
     }
 
@@ -30,7 +30,6 @@ class Project extends ActiveRecord
         return [
             'id' => Module::t('ID'),
             'name' => Module::t('Name'),
-            'device_name' => Module::t('Device Name'),
             'conn_type' => Module::t('Conn Type'),
             'app_config' => Module::t('App Config'),
         ];

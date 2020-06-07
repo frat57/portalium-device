@@ -11,6 +11,7 @@ class Module extends \portalium\base\Module
             'controller' => [
                 'device/devices',
                 'device/projects',
+                'device/apps',
                 'device/properties',
                 'device/datas',
                 'device/variables',

@@ -7,7 +7,7 @@ use yii\data\ActiveDataProvider;
 
 class AppprojectsController extends RestActiveController
 {
-    public $modelClass = 'portalium\device\models\ProjectAppRelation';
+    public $modelClass = 'portalium\device\models\AppProject';
 
     public function actions()
     {

@@ -10,26 +10,17 @@ use portalium\theme\widgets\GridView;
 /* @var $this yii\web\View */
 /* @var $type portalium\device\models\Type */
 /* @var $form yii\widgets\ActiveForm */
-/* @var $model portalium\device\models\Variable */
+/* @var $model portalium\device\models\Project */
 ?>
 
 <div class="project-form">
 
-    <?php $form = ActiveForm::begin(['action' => Url::toRoute(['app/updateproject','id' => $app,'p_id' => $model->id])]); ?>
+    <?php $form = ActiveForm::begin(['action' => Url::toRoute(['app/updateproject','id' => $app])]); ?>
 
-    <?= $form->field($model, 'name')->dropDownList($items,['prompt'=>''], ['options' =>
-
-        [
-
-            $model->id => ['selected' => true]
-
-        ]
-
-    ] )->label('')?>
-
+    <?= $form->field($appprojects, 'project_id')->dropDownList($items,['prompt'=>''])->label('')?>
 
     <div class="form-group">
-        <?= Html::a(Module::t('Update'), ['app/updateproject','id' => $app,'p_id' => $model->id], ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Module::t('Update'), ['type'], ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
@@ -39,7 +30,6 @@ use portalium\theme\widgets\GridView;
         'columns' => [
 
             'name',
-            'device_name',
             'conn_type',
             'app_config',
 

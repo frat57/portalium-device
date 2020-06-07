@@ -2,6 +2,7 @@
 
 namespace portalium\device\controllers\backend;
 
+use portalium\device\models\AppProject;
 use portalium\device\models\Project;
 use portalium\device\models\ProjectAppRelation;
 use portalium\device\models\Variable;
@@ -77,24 +78,22 @@ class AppController extends Controller
             'model' => $model,
         ]);
     }
-    public function actionUpdateproject($id,$p_id)
+    public function actionUpdateproject($id)
     {
         $model = $this->findModel($id);
-        $project_app = new ProjectAppRelation();
+        $project_app = new AppProject();
         $project_app->app_id = $model->id;
-        $project_app->project_id = $project;
         $project_app->user_id = Yii::$app->user->getId();
-        $project_app->save();
 
         if ($project_app->load(Yii::$app->request->post()) && $project_app->save()) {
-            return $this->redirect(['manage', 'id' => $project_app->id]);
+            return $this->redirect(['manage', 'id' => $id]);
         }
     }
 
     public function actionManage($id){
         $model = $this->findModel($id);
         $items = ArrayHelper::map(Project::find()->all(), 'id', 'name');
-        $project = new Project();
+        $appprojects = new AppProject();
         $projectProvider = new ActiveDataProvider(['query' => $model->getProjects()]);
         if ($model->load(Yii::$app->request->post())) {
             $model->user_id = Yii::$app->user->getId();
@@ -104,7 +103,7 @@ class AppController extends Controller
 
         return $this->render('manage',[
             'model' => $model,
-            'project' => $project,
+            'appprojects' => $appprojects,
             'projectProvider' => $projectProvider,
             'items' => $items
         ]);

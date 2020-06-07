@@ -21,8 +21,6 @@ class Variable extends ActiveRecord
             [['description', 'unit'], 'string'],
             [['range', 'device_id'], 'integer'],
             [['name', 'api'], 'string', 'max' => 20],
-            [['device_id'], 'exist', 'skipOnError' => true, 'targetClass' => Device::className(), 'targetAttribute' => ['device_id' => 'id']],
-            [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => Type::className(), 'targetAttribute' => ['type_id' => 'id']],
         ];
     }
 

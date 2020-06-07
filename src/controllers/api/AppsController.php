@@ -4,18 +4,18 @@ namespace portalium\device\controllers\api;
 
 use Yii;
 use portalium\device\models\App;
-use portalium\rest\ActiveController;
+use portalium\rest\ActiveController as RestActiveController;;
 use yii\data\ActiveDataProvider;
 use portalium\user\models\User;
 
-class AppsController extends ActiveController
+class AppsController extends RestActiveController
 {
     public $modelClass = 'portalium\device\models\App';
 
     public function actions()
     {
         $actions = parent::actions();
-        unset($actions['create'], $actions['index']);
+        unset($actions['create'],$actions['index']);
         return $actions;
     }
     public function actionCreate()
@@ -24,6 +24,7 @@ class AppsController extends ActiveController
 
         if($model->load(Yii::$app->getRequest()->getBodyParams(),'')) {
             $model->user_id = Yii::$app->user->identity->getId();
+
             if($model->save())
                 return $model;
             else

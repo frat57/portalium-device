@@ -6,7 +6,7 @@ use Yii;
 use yii\db\ActiveRecord;
 use portalium\device\Module;
 
-class ProjectAppRelation extends ActiveRecord
+class AppProject extends ActiveRecord
 {
 
     public static function tableName()
@@ -17,8 +17,8 @@ class ProjectAppRelation extends ActiveRecord
     public function rules()
     {
         return [
-            [['project_id', 'app_id'], 'required'],
-            [['project_id', 'app_id'], 'integer'],
+            [['project_id', 'app_id','user_id'], 'required'],
+            [['project_id', 'app_id','user_id'], 'integer'],
             [['project_id'], 'exist', 'skipOnError' => true, 'targetClass' => Project::className(), 'targetAttribute' => ['project_id' => 'id']],
             [['app_id'], 'exist', 'skipOnError' => true, 'targetClass' => App::className(), 'targetAttribute' => ['app_id' => 'id']],
         ];
