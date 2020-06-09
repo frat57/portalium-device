@@ -20,7 +20,7 @@ class Project extends ActiveRecord
         return [
             [['name','user_id'], 'required'],
             [['id'], 'integer'],
-            [['app_config', 'conn_type'], 'string'],
+            [['app_config'], 'string'],
             [['name'], 'string', 'max' => 20],
         ];
     }
@@ -30,9 +30,32 @@ class Project extends ActiveRecord
         return [
             'id' => Module::t('ID'),
             'name' => Module::t('Name'),
-            'conn_type' => Module::t('Conn Type'),
             'app_config' => Module::t('App Config'),
         ];
+    }
+    public function IsOwner($id)
+    {
+        $user_id = Yii::$app->user->getId();
+
+        $rows = (new \yii\db\Query())
+            ->select(['a.id','a.user_id'])
+            ->from('app a')
+            ->innerJoin("app_projects ap",
+                'a.id = ap.app_id')
+            ->innerJoin('project p',
+                'ap.project_id = p.id')
+            ->where('p.user_id = ' .$user_id )
+            ->where('p.id = ' .$id )
+            ->all();
+
+        if(count($rows) >= 1) {
+            return true;
+        }
+        return false;
+    }
+    public function getApp()
+    {
+        return $this->hasMany(App::className(), ['id' => 'app_id']);
     }
 
     public function getDevices()

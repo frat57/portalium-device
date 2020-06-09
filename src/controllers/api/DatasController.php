@@ -14,7 +14,7 @@ class DatasController extends RestActiveController
 
     public function actions(){
         $actions = parent::actions();
-        unset($actions['index'],$actions['create'],$actions['update'],$actions['delete']);
+        unset($actions['index'],$actions['create'],$actions['update'],$actions['delete'],$actions['view']);
 
         return $actions;
     }
@@ -34,7 +34,7 @@ class DatasController extends RestActiveController
         $model = new Data();
         $model->variable_id = $variable_id;
         $model->value = $value;
-        if(Data::IsOwner($variable_id) == true) {
+        if(Data::IsOwnerVariable($variable_id) == true) {
             if ($model->save()){
                 return $model;
             }

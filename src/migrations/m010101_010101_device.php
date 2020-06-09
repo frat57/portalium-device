@@ -8,7 +8,7 @@ class m010101_010101_device extends Migration
     {
         $tableOptions = null;
         if ($this->db->driverName === 'mysql') {
-            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_turkish_ci ENGINE=InnoDB';
         }
 
         $this->createTable('app', [
@@ -19,7 +19,7 @@ class m010101_010101_device extends Migration
 
         $tableOptions = null;
         if ($this->db->driverName === 'mysql') {
-            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_turkish_ci ENGINE=InnoDB';
         }
 
         $this->createTable('app_projects', [
@@ -30,7 +30,7 @@ class m010101_010101_device extends Migration
 
         $tableOptions = null;
         if ($this->db->driverName === 'mysql') {
-            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_turkish_ci ENGINE=InnoDB';
         }
 
         $this->createTable('device_tags', [
@@ -40,7 +40,7 @@ class m010101_010101_device extends Migration
 
         $tableOptions = null;
         if ($this->db->driverName === 'mysql') {
-            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_turkish_ci ENGINE=InnoDB';
         }
 
         $this->createTable('device', [
@@ -54,33 +54,29 @@ class m010101_010101_device extends Migration
 
         $tableOptions = null;
         if ($this->db->driverName === 'mysql') {
-            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_turkish_ci ENGINE=InnoDB';
         }
 
         $this->createTable('project', [
             'id' => $this->primaryKey(),
             'name' => $this->string(20)->notNull(),
-            'device_name' => $this->integer(11),
-            'conn_type' => $this->string(20),
             'app_config' => $this->text(),
             'user_id' => $this->integer(11)->notNull()
         ], $tableOptions);
 
         $tableoptions = null;
         if ($this->db->driverName === 'mysql') {
-            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_turkish_ci ENGINE=InnoDB';
         }
         $this->createTable('data', [
-            'device_id' => $this->integer(11),
             'value' => $this->text(),
             'created_at' => $this->timestamp(),
-            'type' => $this->tinyInteger(1),
             'variable_id' => $this->integer(11)
         ], $tableOptions);
 
         $tableoptions = null;
         if ($this->db->driverName === 'mysql') {
-            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_turkish_ci ENGINE=InnoDB';
         }
         $this->createTable('properties', [
             'id' => $this->primaryKey(),
@@ -95,7 +91,7 @@ class m010101_010101_device extends Migration
 
         $tableOptions = null;
         if ($this->db->driverName === 'mysql') {
-            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_turkish_ci ENGINE=InnoDB';
         }
 
         $this->createTable('tag', [
@@ -106,7 +102,7 @@ class m010101_010101_device extends Migration
 
         $tableoptions = null;
         if ($this->db->driverName === 'mysql') {
-            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_turkish_ci ENGINE=InnoDB';
         }
         $this->createTable('type', [
             'id' => $this->primaryKey(),
@@ -117,7 +113,7 @@ class m010101_010101_device extends Migration
 
         $tableoptions = null;
         if ($this->db->driverName === 'mysql') {
-            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_turkish_ci ENGINE=InnoDB';
         }
         $this->createTable('variable', [
             'id' => $this->primaryKey(),
@@ -125,6 +121,7 @@ class m010101_010101_device extends Migration
             'api' => $this->string(20),
             'description' => $this->text(),
             'range' => $this->integer(11),
+            'type' => $this->tinyInteger(1),
             'unit' => $this->text(),
             'device_id' => $this->integer(11)->null()->defaultValue(0),
             'type_id' => $this->integer(11)->null()->defaultValue(0),
@@ -203,7 +200,8 @@ class m010101_010101_device extends Migration
             'device_tags',
             'device_id',
             'device',
-            'id'
+            'id',
+            'CASCADE'
         );
         $this->createIndex(
             'idx-app_projects-project_id',
@@ -230,18 +228,6 @@ class m010101_010101_device extends Migration
             'app',
             'id',
             'CASCADE'
-        );
-        $this->createIndex(
-            'idx-data-device_id',
-            'data',
-            'device_id'
-        );
-        $this->addForeignKey(
-            'fk-data-device_id',
-            'data',
-            'device_id',
-            'device',
-            'id'
         );
         $this->createIndex(
             'idx-project-device_id',
@@ -336,7 +322,6 @@ class m010101_010101_device extends Migration
 
     public function down()
     {
-        $this->dropIndex('idx-data-device_id');
         $this->dropIndex('idx-project-device_id');
         $this->dropIndex('idx-device-type_id');
         $this->dropIndex('idx-properties-device_id');
@@ -351,7 +336,6 @@ class m010101_010101_device extends Migration
         $this->dropIndex('idx-app_projects-user_id');
         $this->dropIndex('idx-app-user_id');
 
-        $this->dropForeignKey('fk-data-device_id');
         $this->dropForeignKey('fk-project-device_id');
         $this->dropForeignKey('fk-device-type_id');
         $this->dropForeignKey('fk-properties-device_id');

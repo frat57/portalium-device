@@ -50,11 +50,31 @@ class Data extends ActiveRecord
             ->where('v.id = ' .$id )
             ->all();
 
-        if(count($rows) == 1) {
+        if(count($rows) >= 1) {
             return true;
         }
         return false;
     }
+    public function IsOwnerVariable($id)
+    {
+        $user_id = Yii::$app->user->getId();
+
+        $rows = (new \yii\db\Query())
+            ->select(['v.id'])
+            ->from('variable v')
+            ->innerJoin('device d',
+                'v.device_id = d.id')
+            ->innerJoin('project p',
+                'd.project_id = p.id')
+            ->where('p.user_id = ' .$user_id )
+            ->all();
+
+        if(count($rows) >= 1) {
+            return true;
+        }
+        return false;
+    }
+
     public function getDevice()
     {
         return $this->hasOne(Device::className(), ['id' => 'device_id']);

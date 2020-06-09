@@ -46,6 +46,7 @@ class Variable extends ActiveRecord
     public function IsOwner($id)
     {
         $user_id = Yii::$app->user->getId();
+
         $rows = (new \yii\db\Query())
             ->select(['v.device_id'])
             ->from('variable v')
@@ -54,7 +55,7 @@ class Variable extends ActiveRecord
             ->innerJoin('project p',
                 'd.project_id = p.id')
             ->where('p.user_id = ' .$user_id )
-            ->where('v.id = ' .$id)
+            ->where('v.device_id = ' .$id)
             ->all();
 
         if(count($rows) == 1) {

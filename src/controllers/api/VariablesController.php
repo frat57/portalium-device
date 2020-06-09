@@ -4,7 +4,6 @@ namespace portalium\device\controllers\api;
 
 use Yii;
 use portalium\device\models\Variable;
-use portalium\site\Module;
 use portalium\rest\ActiveController as RestActiveController;
 use yii\data\ActiveDataProvider;
 
@@ -14,20 +13,20 @@ class VariablesController extends RestActiveController
 
     public function actions(){
         $actions = parent::actions();
-        unset($actions['index'],$actions['create'],$actions['update'],$actions['delete']);
+        unset($actions['index'],$actions['create'],$actions['update'],$actions['delete'],$actions['view']);
 
         return $actions;
     }
-    public function actionIndex($id){
+    public function actionIndex($device_id){
 
-        if(Variable::IsOwner($id) == true)
+        if(Variable::IsOwner($device_id) == true)
         {
             $activeData = new ActiveDataProvider([
-                'query' => Variable::find()->where(['id' => $id])
+                'query' => Variable::find()->where('device_id = '.$device_id)
             ]);
             return $activeData;
         }
-        else return 'Yetkisiz Erişim';
+         return null;
     }
 
 }

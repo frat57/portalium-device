@@ -12,8 +12,8 @@ class ProjectSearch extends Project
     public function rules()
     {
         return [
-            [['id', 'conn_type'], 'integer'],
-            [['name', 'device_name', 'app_config'], 'safe'],
+            [['id'], 'integer'],
+            [['name', 'app_config'], 'safe'],
         ];
     }
 
@@ -44,11 +44,9 @@ class ProjectSearch extends Project
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'conn_type' => $this->conn_type,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'device_name', $this->device_name])
             ->andFilterWhere(['like', 'app_config', $this->app_config]);
 
         return $dataProvider;

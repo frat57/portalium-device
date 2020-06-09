@@ -59,10 +59,10 @@ class Properties extends ActiveRecord
             ->innerJoin('project pr',
                 'd.project_id = pr.id')
             ->where('pr.user_id = ' .$user_id )
-            ->where('p.id = ' .$id)
+            ->where('p.device_id = ' .$id)
             ->all();
 
-        if(count($rows) == 1) {
+        if(count($rows) >= 1) {
             return true;
         }
         return false;

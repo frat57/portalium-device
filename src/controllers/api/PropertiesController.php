@@ -13,19 +13,29 @@ class PropertiesController extends RestActiveController
 
     public function actions(){
         $actions = parent::actions();
-        unset($actions['index'],$actions['create'],$actions['update'],$actions['delete']);
+        unset($actions['index'],$actions['create'],$actions['delete'],$actions['view']);
 
         return $actions;
     }
-    public function actionIndex($id){
+    public function actionIndex($device_id){
 
-        if(Properties::IsOwner($id) == true)
+        if(Properties::IsOwner($device_id) == true)
         {
             $activeData = new ActiveDataProvider([
-                'query' => Properties::find()->select(['id','device_id'])
+                'query' => Properties::find()->where('device_id = '.$device_id)
             ]);
             return $activeData;
         }
-        return 'Yetkisiz Erişim';
+        return null;
+    }
+    public function actionView($id){
+
+        if(Properties::IsOwner($id) == true) {
+            $activeData = new ActiveDataProvider([
+                'query' => Properties::find()->where('id = ' .$id)
+            ]);
+            return $activeData;
+        }
+        return null;
     }
 }

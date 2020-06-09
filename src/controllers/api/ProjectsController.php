@@ -8,6 +8,7 @@ use portalium\device\Module;
 use portalium\rest\ActiveController;
 use yii\data\ActiveDataProvider;
 use portalium\user\models\User;
+use yii\web\Linkable;
 
 
 class ProjectsController extends ActiveController
@@ -17,9 +18,19 @@ class ProjectsController extends ActiveController
     public function actions()
     {
         $actions = parent::actions();
-        unset($actions['create'], $actions['index']);
+        unset($actions['create'], $actions['index'], $actions['view']);
         return $actions;
     }
+    public function actionView($id){
+        if(Project::IsOwner($id) == true) {
+            $dataProvider = new ActiveDataProvider([
+                'query' =>  Project::find()->where('id = '.$id)
+            ]);
+            return $dataProvider;
+        }
+        return null;
+    }
+
     public function actionCreate()
     {
         $model = new Project();
@@ -34,11 +45,11 @@ class ProjectsController extends ActiveController
             return $this->error(Module::t("Name required."));
         }
     }
-    public function actionIndex(){
+    public function actionIndex($user_id){
 
-        $activeData = new ActiveDataProvider([
-            'query' => Project::find()->select(['id','user_id'])
-        ]);
-        return $activeData;
+            $projectProvider = new ActiveDataProvider([
+                'query' =>  Project::find()->where('user_id = '.$user_id)
+            ]);
+            return $projectProvider;
     }
 }

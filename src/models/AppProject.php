@@ -46,7 +46,26 @@ class AppProject extends ActiveRecord
             ->where('a.id = ' .$id )
             ->all();
 
-        if(count($rows) == 1) {
+        if(count($rows) >= 1) {
+            return true;
+        }
+        return false;
+    }
+    public function IsOwnerUser($id)
+    {
+        $user_id = Yii::$app->user->getId();
+
+        $rows = (new \yii\db\Query())
+            ->select(['a.id','a.user_id'])
+            ->from('app a')
+            ->innerJoin("app_projects ap",
+                'a.id = ap.app_id')
+            ->innerJoin('project p',
+                'ap.project_id = p.id')
+            ->where('ap.user_id = ' .$id )
+            ->all();
+
+        if(count($rows) >= 1) {
             return true;
         }
         return false;

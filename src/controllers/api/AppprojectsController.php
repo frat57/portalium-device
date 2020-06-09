@@ -14,7 +14,7 @@ class AppprojectsController extends RestActiveController
     public function actions()
     {
         $actions = parent::actions();
-        unset($actions['index'],$actions['update'], $actions['delete']);
+        unset($actions['index'],$actions['update'],$actions['view']);
         return $actions;
     }
     public function actionIndex($app_id){
@@ -25,6 +25,17 @@ class AppprojectsController extends RestActiveController
                 'query' => App::findOne($app_id)->getProjects()
             ]);
             return $projectProvider;
+        }
+        return 'Yetkisiz Erişim';
+    }
+    public function actionView($user_id){
+
+        if(AppProject::IsOwnerUser($user_id) == true)
+        {
+            $appProvider = new ActiveDataProvider([
+                'query' => App::find()->where('user_id = ' .$user_id)
+            ]);
+            return $appProvider;
         }
         return 'Yetkisiz Erişim';
     }
