@@ -31,8 +31,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'name',
-            'device_name',
-            'conn_type',
             'app_config:ntext',
         ],
     ]) ?>

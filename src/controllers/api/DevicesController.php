@@ -5,6 +5,7 @@ namespace portalium\device\controllers\api;
 use portalium\device\models\Device;
 use portalium\rest\ActiveController as RestActiveController;
 use yii\data\ActiveDataProvider;
+use yii\web\UnauthorizedHttpException;
 
 class DevicesController extends RestActiveController
 {
@@ -15,15 +16,19 @@ class DevicesController extends RestActiveController
         unset($actions['index'],$actions['create'],$actions['update'],$actions['delete'],$actions['view']);
         return $actions;
     }
-    public function actionIndex(){
-
+    public function actionIndex($project_id)
+    {
+        if(Device::IsOwnerProject($project_id)){
             $activeData = new ActiveDataProvider([
-                'query' => Device::find()
+                'query' => Device::find()->where('project_id = '.$project_id)
             ]);
             return $activeData;
+        }
+        throw new UnauthorizedHttpException(404);
     }
-    public function actionView($id){
-        if(Device::IsOwner($id) == true) {
+    public function actionView($id)
+    {
+        if(Device::IsOwner($id)) {
             $activeData = new ActiveDataProvider([
                 'query' => Device::find()->where('id = ' .$id)
             ]);

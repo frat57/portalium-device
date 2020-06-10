@@ -3,6 +3,7 @@
 namespace portalium\device\controllers\api;
 
 use Yii;
+use yii\web\UnauthorizedHttpException;
 use portalium\device\models\App;
 use portalium\rest\ActiveController as RestActiveController;;
 use yii\data\ActiveDataProvider;
@@ -42,6 +43,6 @@ class AppsController extends RestActiveController
          ]);
             return $activeData;
         }
-        return 'Yetkisiz Erişim';
+        throw new AuthenticationException(404);
     }
 }

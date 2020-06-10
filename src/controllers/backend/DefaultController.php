@@ -72,7 +72,7 @@ class DefaultController extends Controller
     }
     public function actionPropertiesdelete($id)
     {
-        Properties::findOne($id)->delete();
+        $this->findPropertiesModel($id)->delete();
 
         return $this->redirect(['manage']);
     }
@@ -169,11 +169,9 @@ class DefaultController extends Controller
         }
         //Çekilen kayıtların kopyaları bu sefer type_id = 0 yapılıp
         // device_id leri ilgili device_id olucak şekilde yeni kayıt olarak eklenir.
-
         if ($model->save()) {
             return $this->redirect(['default/manage', 'id' => $d_id]);
         }
-
     }
 
     public function actionUpdate($id)

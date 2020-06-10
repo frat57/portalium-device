@@ -7,6 +7,7 @@ use portalium\device\models\Variable;
 use portalium\device\models\Data;
 use portalium\rest\ActiveController as RestActiveController;
 use yii\data\ActiveDataProvider;
+use yii\web\UnauthorizedHttpException;
 
 class DatasController extends RestActiveController
 {
@@ -27,7 +28,7 @@ class DatasController extends RestActiveController
             ]);
             return $activeData;
         }
-        return null;
+        throw new UnauthorizedHttpException(404);
     }
     public function actionCreate($variable_id,$value)
     {

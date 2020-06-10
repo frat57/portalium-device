@@ -6,6 +6,7 @@ use Yii;
 use portalium\device\models\Variable;
 use portalium\rest\ActiveController as RestActiveController;
 use yii\data\ActiveDataProvider;
+use yii\web\UnauthorizedHttpException;
 
 class VariablesController extends RestActiveController
 {
@@ -26,7 +27,7 @@ class VariablesController extends RestActiveController
             ]);
             return $activeData;
         }
-         return null;
+        throw new UnauthorizedHttpException(404);
     }
 
 }

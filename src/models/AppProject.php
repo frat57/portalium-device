@@ -46,7 +46,7 @@ class AppProject extends ActiveRecord
             ->where('a.id = ' .$id )
             ->all();
 
-        if(count($rows) >= 1) {
+        if(count($rows) == 1) {
             return true;
         }
         return false;
@@ -65,7 +65,7 @@ class AppProject extends ActiveRecord
             ->where('ap.user_id = ' .$id )
             ->all();
 
-        if(count($rows) >= 1) {
+        if(count($rows) == 1) {
             return true;
         }
         return false;

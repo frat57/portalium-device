@@ -30,7 +30,6 @@ use portalium\theme\widgets\GridView;
         'columns' => [
 
             'name',
-            'conn_type',
             'app_config',
 
             [

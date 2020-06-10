@@ -48,7 +48,7 @@ class Project extends ActiveRecord
             ->where('p.id = ' .$id )
             ->all();
 
-        if(count($rows) >= 1) {
+        if(count($rows) == 1) {
             return true;
         }
         return false;

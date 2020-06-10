@@ -29,8 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'name',
-            'device_name',
-            'conn_type',
             'app_config:ntext',
 
             [

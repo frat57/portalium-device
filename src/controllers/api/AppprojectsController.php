@@ -2,10 +2,12 @@
 
 namespace portalium\device\controllers\api;
 
+use Yii;
 use portalium\device\models\AppProject;
 use portalium\device\models\App;
 use portalium\rest\ActiveController as RestActiveController;
 use yii\data\ActiveDataProvider;
+use yii\web\UnauthorizedHttpException;
 
 class AppprojectsController extends RestActiveController
 {
@@ -14,7 +16,7 @@ class AppprojectsController extends RestActiveController
     public function actions()
     {
         $actions = parent::actions();
-        unset($actions['index'],$actions['update'],$actions['view']);
+        unset($actions['index'],$actions['update'],$actions['view'],$actions['delete']);
         return $actions;
     }
     public function actionIndex($app_id){
@@ -26,17 +28,26 @@ class AppprojectsController extends RestActiveController
             ]);
             return $projectProvider;
         }
-        return 'Yetkisiz Erişim';
+        throw new UnauthorizedHttpException(404);
     }
-    public function actionView($user_id){
+    public function actionDelete($id)
+    {
+        $model = App::findOne($id);
+       // $app_projects = AppProject::findOne($id);
+        if(App::IsOwner($id)) {
+            $model->delete();
+           // $app_projects->delete();
+        }
+        throw new UnauthorizedHttpException(404);
+    }
+    public function actionView(){
 
-        if(AppProject::IsOwnerUser($user_id) == true)
-        {
+        $user_id = Yii::$app->user->getId();
+
             $appProvider = new ActiveDataProvider([
                 'query' => App::find()->where('user_id = ' .$user_id)
             ]);
             return $appProvider;
-        }
-        return 'Yetkisiz Erişim';
+
     }
 }

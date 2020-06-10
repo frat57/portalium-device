@@ -84,8 +84,5 @@ class Data extends ActiveRecord
     {
         return new DataQuery(get_called_class());
     }
-    public static function getTypes()
-    {
-        return ObjectHelper::getConstants('type_',__CLASS__);
-    }
+
 }

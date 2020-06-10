@@ -67,6 +67,24 @@ class Device extends ActiveRecord
         }
         return false;
     }
+    public function IsOwnerProject($id)
+    {
+        $user_id = Yii::$app->user->getId();
+
+        $rows = (new \yii\db\Query())
+            ->select('d.id')
+            ->from('device d')
+            ->innerJoin("project p",
+                'd.project_id = p.id')
+            ->where('p.user_id = ' .$user_id )
+            ->where('d.project_id = ' .$id )
+            ->all();
+
+        if(count($rows) == 1) {
+            return true;
+        }
+        return false;
+    }
     public function getDatas()
     {
         return $this->hasMany(Data::className(), ['device_id' => 'id']);

@@ -16,6 +16,7 @@ class Module extends \portalium\base\Module
                 'device/datas',
                 'device/variables',
                 'device/appprojects',
+                'device/details',
             ]
         ],
     ];

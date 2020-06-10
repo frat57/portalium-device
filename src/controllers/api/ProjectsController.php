@@ -9,6 +9,7 @@ use portalium\rest\ActiveController;
 use yii\data\ActiveDataProvider;
 use portalium\user\models\User;
 use yii\web\Linkable;
+use yii\web\UnauthorizedHttpException;
 
 
 class ProjectsController extends ActiveController
@@ -18,17 +19,24 @@ class ProjectsController extends ActiveController
     public function actions()
     {
         $actions = parent::actions();
-        unset($actions['create'], $actions['index'], $actions['view']);
+        unset($actions['create'], $actions['index'], $actions['view'],$actions['update'],$actions['delete']);
         return $actions;
     }
     public function actionView($id){
-        if(Project::IsOwner($id) == true) {
+        if(Project::IsOwner($id)) {
             $dataProvider = new ActiveDataProvider([
                 'query' =>  Project::find()->where('id = '.$id)
             ]);
             return $dataProvider;
         }
-        return null;
+        throw new UnauthorizedHttpException(404);
+    }
+    public function actionDelete($id){
+        $model = Project::findOne($id);
+        if(Project::IsOwner($id)) {
+            $model->delete();
+        }
+        throw new UnauthorizedHttpException(404);
     }
 
     public function actionCreate()
@@ -44,9 +52,25 @@ class ProjectsController extends ActiveController
         }else{
             return $this->error(Module::t("Name required."));
         }
-    }
-    public function actionIndex($user_id){
 
+    }
+    public function actionUpdate($id){
+        $model = Project::findOne($id);
+        if(Project::IsOwner($id)){
+            if($model->load(Yii::$app->getRequest()->getBodyParams(),'')) {
+                if($model->save())
+                    return $model;
+                else
+                    return $this->modelError($model);
+            }else{
+                return $this->error(Module::t("Name required."));
+            }
+
+        }throw new UnauthorizedHttpException(404);
+    }
+
+    public function actionIndex(){
+            $user_id = Yii::$app->user->getId();
             $projectProvider = new ActiveDataProvider([
                 'query' =>  Project::find()->where('user_id = '.$user_id)
             ]);

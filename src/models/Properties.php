@@ -59,10 +59,30 @@ class Properties extends ActiveRecord
             ->innerJoin('project pr',
                 'd.project_id = pr.id')
             ->where('pr.user_id = ' .$user_id )
+            ->where('p.id = ' .$id)
+            ->all();
+
+        if(count($rows) == 1) {
+            return true;
+        }
+        return false;
+    }
+    public function IsOwnerDevice($id)
+    {
+        $user_id = Yii::$app->user->getId();
+
+        $rows = (new \yii\db\Query())
+            ->select(['p.id','p.device_id'])
+            ->from('properties p')
+            ->innerJoin("device d",
+                'p.device_id = d.id')
+            ->innerJoin('project pr',
+                'd.project_id = pr.id')
+            ->where('pr.user_id = ' .$user_id )
             ->where('p.device_id = ' .$id)
             ->all();
 
-        if(count($rows) >= 1) {
+        if(count($rows) == 1) {
             return true;
         }
         return false;
