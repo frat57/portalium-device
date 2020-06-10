@@ -11,7 +11,7 @@ use yii\helpers\HtmlPurifier;
     <div style="float: left;">
         <div style="width: 500px;">
     <h2 class="title">
-        <?= Html::a(Html::encode($model->name), Url::toRoute(['default/manage', 'id' => $model->id])) ?>
+        <?= Html::a(Html::encode($model->name), Url::toRoute(['default/variable', 'id' => $model->id])) ?>
     </h2>
 
         <div class="col-sm-6 col-md-4">
@@ -22,7 +22,7 @@ use yii\helpers\HtmlPurifier;
                        <?= Html::a('<span class="glyphicon glyphicon-pencil"></span>',
                            ['default/variable','id' => $model->id]);
                        ?>
-                        <?= Html::a('<a class="glyphicon glyphicon-trash"></a>', ['variable/delete', 'id' => $model->id], [
+                        <?= Html::a('<span class="glyphicon glyphicon-trash"></span>', ['default/variablesdelete', 'id' => $model->id ,'device_id' => $device_id], [
                             'class' => '',
                             'data' => [
                                 'confirm' => 'Are you absolutely sure ? You will lose all the information about this user with this action.',

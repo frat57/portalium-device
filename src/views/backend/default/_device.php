@@ -82,7 +82,7 @@ use yii\bootstrap\Modal;
                                         ]);
                                 },
                                 'delete' => function($url, $model){
-                                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['propertiesdelete', 'id' => $model->id], [
+                                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['default/propertiesdelete', 'id' => $model->id], [
                                         'class' => '',
                                         'data' => [
                                             'confirm' => 'Are you absolutely sure ? You will lose all the information about this user with this action.',
@@ -104,11 +104,11 @@ use yii\bootstrap\Modal;
 
             <?= $form->field($properties, 'name')->textInput(['maxlength' => true]) ?>
 
-            <?= $form->field($properties, 'key')->textarea(['rows' => 1]) ?>
-
             <?= $form->field($properties, 'description')->textarea(['rows' => 1]) ?>
 
             <?= $form->field($properties, 'format')->dropDownList($properties->getTypes()) ?>
+
+            <?= $form->field($properties, 'value')->textarea(['rows' => 1]) ?>
 
         <div class="form-group">
             <?= Html::submitButton(Module::t('Save'), ['create'],['class' => 'btn btn-success']) ?>

@@ -20,7 +20,6 @@ $this->params['breadcrumbs'][] = Module::t('Update');
        'model' => $model,
        'tagProvider' => $tagProvider,
        'properties' => $properties,
-       'device' => $model->id,
        'typeProvider' => $typeProvider,
        'propertiesProvider' => $propertiesProvider,
        ])
@@ -31,16 +30,14 @@ $this->params['breadcrumbs'][] = Module::t('Update');
     <?=
     ListView::widget([
         'dataProvider' => $variableProvider,
+        'viewParams' => [ 'device_id' => $model->id ],
         'options' => [
             'tag' => 'div',
             'class' => 'list-wrapper',
             'id' => 'list-wrapper',
         ],
         'summary'=> false,
-        'itemView' => function ($variable, $key, $index, $widget) {
-            return $this->render('_list_variable', ['model' => $variable]);
-        },
-
+        'itemView' => '_list_variable',
     ]);
     ?>
 </div>

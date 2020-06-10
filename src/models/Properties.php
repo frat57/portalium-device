@@ -28,8 +28,6 @@ class Properties extends ActiveRecord
             [['device_id', 'type_id'], 'integer'],
             ['format', 'default', 'value'=> self::type_text],
             ['format', 'in' ,'range'=> self::getTypes()],
-            [['device_id'], 'exist', 'skipOnError' => true, 'targetClass' => Device::className(), 'targetAttribute' => ['device_id' => 'id']],
-            [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => Type::className(), 'targetAttribute' => ['type_id' => 'id']],
             [['name'], 'string', 'max' => 20],
         ];
     }

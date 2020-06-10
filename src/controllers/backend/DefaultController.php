@@ -53,7 +53,7 @@ class DefaultController extends Controller
         $properties = new Properties();
         $properties->device_id = $id;
         if ($properties->load(Yii::$app->request->post()) && $properties->save()) {
-            return $this->redirect(['default/manage', 'id' => $properties->id]);
+            return $this->redirect(['default/manage', 'id' => $id]);
         }
 
     }
@@ -72,9 +72,17 @@ class DefaultController extends Controller
     }
     public function actionPropertiesdelete($id)
     {
+        $properties = Properties::findOne($id);
+        $device_id = $properties->device_id;
         $this->findPropertiesModel($id)->delete();
 
-        return $this->redirect(['manage']);
+        return $this->redirect(['manage','id' => $device_id]);
+    }
+    public function actionVariablesdelete($id,$device_id)
+    {
+        $this->findVariableModel($id)->delete();
+
+        return $this->redirect(['manage','id' => $device_id]);
     }
     //Variable için create type controller
     public function actionVariable($id){
@@ -169,6 +177,20 @@ class DefaultController extends Controller
         }
         //Çekilen kayıtların kopyaları bu sefer type_id = 0 yapılıp
         // device_id leri ilgili device_id olucak şekilde yeni kayıt olarak eklenir.
+        $properties = Properties::find()->where(['type_id'=> $id])->asArray()->all();
+        foreach ($properties as $propertie) {
+            $newproperties = new Properties();
+            $newproperties->name = $propertie['name'];
+            $newproperties->key = $propertie['key'];
+            $newproperties->description = $propertie['description'];
+            $newproperties->format = $propertie['format'];
+            $newproperties->value = $propertie['value'];
+            $newproperties->type_id = 0;
+            $newproperties->device_id = $d_id;
+            if($newproperties->validate())
+            $newproperties->save();
+        }
+
         if ($model->save()) {
             return $this->redirect(['default/manage', 'id' => $d_id]);
         }
@@ -202,6 +224,14 @@ class DefaultController extends Controller
     protected function findPropertiesModel($id)
     {
         if (($model = Properties::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException(Module::t('The requested page does not exist.'));
+    }
+    protected function findVariableModel($id)
+    {
+        if (($model = Variable::findOne($id)) !== null) {
             return $model;
         }
 
