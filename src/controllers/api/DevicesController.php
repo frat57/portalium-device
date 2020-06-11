@@ -34,6 +34,6 @@ class DevicesController extends RestActiveController
             ]);
             return $activeData;
         }
-        return null;
+        throw new UnauthorizedHttpException(404);
     }
 }

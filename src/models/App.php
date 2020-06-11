@@ -31,7 +31,7 @@ class App extends ActiveRecord
         ];
     }
 
-    public function IsOwner($id)
+    public static function IsOwner($id)
     {
         $user_id = Yii::$app->user->getId();
 

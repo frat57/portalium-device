@@ -33,10 +33,10 @@ class Project extends ActiveRecord
             'app_config' => Module::t('App Config'),
         ];
     }
-    public function IsOwner($id)
+    public static function IsOwner($id)
     {
         $user_id = Yii::$app->user->getId();
-
+        
         $rows = (new \yii\db\Query())
             ->select(['a.id','a.user_id'])
             ->from('app a')

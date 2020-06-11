@@ -29,7 +29,7 @@ class Variable extends ActiveRecord
         ];
     }
 
-    public function attributeLabels()
+    public static function attributeLabels()
     {
         return [
             'id' => Module::t('ID'),
@@ -43,7 +43,7 @@ class Variable extends ActiveRecord
             'type_id' => Module::t('Type ID'),
         ];
     }
-    public function IsOwner($id)
+    public static function IsOwner($id)
     {
         $user_id = Yii::$app->user->getId();
 

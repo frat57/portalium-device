@@ -49,7 +49,7 @@ class Device extends ActiveRecord
         ];
     }
 
-    public function IsOwner($id)
+    public static function IsOwner($id)
     {
         $user_id = Yii::$app->user->getId();
 
@@ -67,7 +67,7 @@ class Device extends ActiveRecord
         }
         return false;
     }
-    public function IsOwnerProject($id)
+    public static function IsOwnerProject($id)
     {
         $user_id = Yii::$app->user->getId();
 

@@ -45,7 +45,7 @@ class Properties extends ActiveRecord
             'type_id' => Module::t('Type ID'),
         ];
     }
-    public function IsOwner($id)
+    public static function IsOwner($id)
     {
         $user_id = Yii::$app->user->getId();
 
@@ -65,7 +65,7 @@ class Properties extends ActiveRecord
         }
         return false;
     }
-    public function IsOwnerDevice($id)
+    public static function IsOwnerDevice($id)
     {
         $user_id = Yii::$app->user->getId();
 
