@@ -72,14 +72,14 @@ Sanal Makine ile bağlantı sağlandıktan sonra sırasıyla şu aşamalar yapı
         
 4. portalium/backend/main.php içerisine
 
- ` 'device' => [
+    ` 'device' => [
             'class' => 'portalium\device\Module'
         ],`
         
         
 5. portalium/frontend/main.php içerisine
 
-  `'device' => [
+     `'device' => [
             'class' => 'portalium\device\Module'
         ],`
         
