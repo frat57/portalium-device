@@ -39,7 +39,7 @@ class AppsController extends RestActiveController
         if(App::IsOwner($id) == true)
         {
             $activeData = new ActiveDataProvider([
-                'query' => App::find()
+                'query' => App::find()->where('id = '.$id)
          ]);
             return $activeData;
         }

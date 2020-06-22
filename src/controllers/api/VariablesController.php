@@ -29,5 +29,4 @@ class VariablesController extends RestActiveController
         }
         throw new UnauthorizedHttpException(404);
     }
-
 }
