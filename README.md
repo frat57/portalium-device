@@ -64,20 +64,20 @@ Sanal Makine ile bağlantı sağlandıktan sonra sırasıyla şu aşamalar yapı
         },`
         
         
-3. portalium/api/main.php içerisine 
+3. portalium/api/main.php  module içerisine 
 
    `'device' => [
             'class' => 'portalium\device\Module'
         ],`
         
-4. portalium/backend/main.php içerisine
+4. portalium/backend/main.php  module içerisine
 
     ` 'device' => [
             'class' => 'portalium\device\Module'
         ],`
         
         
-5. portalium/frontend/main.php içerisine
+5. portalium/frontend/main.php module içerisine
 
      `'device' => [
             'class' => 'portalium\device\Module'
