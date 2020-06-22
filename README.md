@@ -86,7 +86,7 @@ Sanal Makine ile bağlantı sağlandıktan sonra sırasıyla şu aşamalar yapı
         
  İşlemleri yapıldığında aşağıdaki işlemler sırasıyla yapılmalıdır.
  
- Sanal Makineye bağlanma
+ Sanal Makineye bağlanıp portalium dizinine inip composer güncelleme işlemi
  * `vagrant ssh`
  * `cd var/www/portalium`
  * `composer update` Bu komutla birlikte gelen seçeneğe `yes` dedikten sonra modülümüzün entegrasyonunu gerçekleştirmiş oluyoruz.
