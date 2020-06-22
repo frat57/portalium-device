@@ -40,4 +40,20 @@ $this->params['breadcrumbs'][] = Module::t('Update');
         'itemView' => '_list_variable',
     ]);
     ?>
+
+    <article style="width:25%;height:190px;border:solid 2px #cccccc;float: left;"
+             class="item" >
+        <h2 class="title">
+            <?= Html::a(Html::encode('Create Variable')) ?>
+        </h2>
+
+        <div class="thumbnail" >
+            <div class="caption">
+                <?= Html::a('<span class="glyphicon glyphicon-plus-sign"></span>',
+                    ['default/createvariable']);
+                ?>
+            </div>
+        </div>
+</div>
+</article>
 </div>

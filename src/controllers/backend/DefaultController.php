@@ -84,6 +84,17 @@ class DefaultController extends Controller
 
         return $this->redirect(['manage','id' => $device_id]);
     }
+    public function actionCreatevariable(){
+        $variable = new Variable();
+
+        if ($variable->load(Yii::$app->request->post()) && $variable->save()) {
+            return $this->redirect(['default/manage', 'id' => $variable->id]);
+        }
+        return $this->render('variable', [
+            'variable' => $variable,
+        ]);
+
+    }
     //Variable için create type controller
     public function actionVariable($id){
         $variable = new Variable();
