@@ -89,4 +89,4 @@ Sanal Makine ile bağlantı sağlandıktan sonra sırasıyla şu aşamalar yapı
  Sanal Makineye bağlanma
  * `vagrant ssh`
  * `cd var/www/portalium`
- * `composer update` Bu komutla birlikte gelen seçeneğe `y` dedikten sonra modülümüzün entegrasyonunu gerçekleştirmiş oluyoruz.
+ * `composer update` Bu komutla birlikte gelen seçeneğe `yes` dedikten sonra modülümüzün entegrasyonunu gerçekleştirmiş oluyoruz.
