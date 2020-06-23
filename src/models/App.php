@@ -31,7 +31,7 @@ class App extends ActiveRecord
         ];
     }
 
-    public static function IsOwner($id)
+    public static function IsOwner()
     {
         $user_id = Yii::$app->user->getId();
 
@@ -43,10 +43,9 @@ class App extends ActiveRecord
             ->innerJoin('project p',
                 'ap.project_id = p.id')
             ->where('a.user_id = ' .$user_id )
-            ->where('a.id = ' .$id )
             ->all();
 
-        if(count($rows) == 1) {
+        if(count($rows) >= 1) {
             return true;
         }
         return false;

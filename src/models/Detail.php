@@ -18,7 +18,7 @@ class Detail extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['widget_id', 'properties_id', 'variable_id', 'project_id'], 'required'],
+            [['widget_id', 'project_id'], 'required'],
             [['id', 'widget_id', 'properties_id', 'variable_id', 'project_id'], 'integer'],
             [['id'], 'unique'],
         ];

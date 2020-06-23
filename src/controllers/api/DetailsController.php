@@ -18,13 +18,13 @@ class DetailsController extends RestActiveController
         unset($actions['index'],$actions['create'],$actions['update'],$actions['delete'],$actions['view']);
         return $actions;
     }
-    public function actionView($id)
+    public function actionView($project_id)
     {
 
-        if (Detail::IsOwner($id))
+        if (Detail::IsOwner($project_id))
         {
             $activeData = new ActiveDataProvider([
-                'query' => Detail::find()->where('project_id='.$id)
+                'query' => Detail::find()->where('project_id='.$project_id)
             ]);
             return $activeData;
         }
@@ -35,6 +35,7 @@ class DetailsController extends RestActiveController
         $model = new Detail();
 
         if($model->load(Yii::$app->getRequest()->getBodyParams(),'')){
+            $model->user_id = Yii::$app->user->identity->getId();
             if ($model->save()){
                 return $model;
             }

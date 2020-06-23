@@ -34,12 +34,12 @@ class AppsController extends RestActiveController
             return $this->error(Module::t("Name required."));
         }
     }
-    public function actionIndex($id){
+    public function actionIndex(){
 
-        if(App::IsOwner($id) == true)
+        if(App::IsOwner())
         {
             $activeData = new ActiveDataProvider([
-                'query' => App::find()->where('id = '.$id)
+                'query' => App::find()
          ]);
             return $activeData;
         }

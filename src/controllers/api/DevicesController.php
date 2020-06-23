@@ -13,7 +13,7 @@ class DevicesController extends RestActiveController
     public function actions()
     {
         $actions = parent::actions();
-        unset($actions['index'],$actions['create'],$actions['update'],$actions['delete'],$actions['view']);
+        unset($actions['index'],$actions['create'],$actions['delete'],$actions['view']);
         return $actions;
     }
     public function actionIndex($project_id)
@@ -26,14 +26,13 @@ class DevicesController extends RestActiveController
         }
         throw new UnauthorizedHttpException(404);
     }
-    public function actionView($id)
+    public function actionView()
     {
-        if(Device::IsOwner($id)) {
-            $activeData = new ActiveDataProvider([
-                'query' => Device::find()->where('id = ' .$id)
-            ]);
-            return $activeData;
-        }
-        throw new UnauthorizedHttpException(404);
+
+        $activeData = new ActiveDataProvider([
+            'query' => Device::find()
+        ]);
+        return $activeData;
+
     }
 }
